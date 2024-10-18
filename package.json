@@ -30,7 +30,7 @@
   "private": false,
   "type": "module",
   "engines": {
-    "node": ">=18.20.3"
+    "node": ">=20.9.0"
   },
   "scripts": {
     "build": "yarn clean && vite build",
