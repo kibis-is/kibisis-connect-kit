@@ -1,0 +1,73 @@
+{
+  "name": "@kibisis/connect-kit",
+  "version": "1.0.0",
+  "description": "The UI kit to allow dApps to connect to the Kibisis wallets.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "CONTRIBUTING.md",
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kibis-is/connect-kit"
+  },
+  "author": {
+    "name": "Kieran O'Neill",
+    "email": "kieran@kibis.is",
+    "url": "https://github.com/kieranroneill"
+  },
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "algorand",
+    "algosdk",
+    "arc0027",
+    "avm",
+    "blockchain",
+    "voi"
+  ],
+  "private": false,
+  "type": "module",
+  "engines": {
+    "node": ">=18.20.3"
+  },
+  "scripts": {
+    "build": "yarn clean && vite build",
+    "check:types": "tsc --noEmit",
+    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "lint": "eslint . --ext .ts,tsx --ext .js",
+    "prepare": "husky",
+    "prettier": "prettier --config .prettierrc --write \"**/*.{js,json,ts,tsx}\"",
+    "test": "exit 0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/types": "^19.5.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.0",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "@types/node": "^22.7.4",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "semantic-release": "^24.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^4.2.3",
+    "vite-tsconfig-paths": "^5.0.1"
+  }
+}
