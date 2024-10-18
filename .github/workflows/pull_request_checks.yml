@@ -1,0 +1,74 @@
+name: "Pull Request Checks"
+
+on:
+  pull_request:
+
+jobs:
+  ##
+  # install
+  ##
+
+  install:
+    name: "Install"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛎 Checkout"
+        uses: actions/checkout@v4
+      - name: "🧶 Setup Yarn Dependencies"
+        uses: ./.github/actions/use-yarn-dependencies
+
+  ##
+  # validation
+  ##
+
+  validate_pr_title:
+    name: "Validate PR Title"
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛎 Checkout"
+        uses: actions/checkout@v4
+      - name: "🧶 Setup Yarn Dependencies"
+        uses: ./.github/actions/use-yarn-dependencies
+      - name: "✅ Validate"
+        run: echo ${{ github.event.pull_request.title }} | yarn commitlint
+
+  ##
+  # lint, check types and test
+  ##
+
+  lint:
+    name: "Lint"
+    needs: [install, validate_pr_title]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛎 Checkout"
+        uses: actions/checkout@v4
+      - name: "🧶 Setup Yarn Dependencies"
+        uses: ./.github/actions/use-yarn-dependencies
+      - name: "👕 Lint"
+        run: yarn lint
+
+  check_types:
+    name: "Type Check"
+    needs: [install, validate_pr_title]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛎 Checkout"
+        uses: actions/checkout@v4
+      - name: "🧶 Setup Yarn Dependencies"
+        uses: ./.github/actions/use-yarn-dependencies
+      - name: "🔍 Type Check"
+        run: yarn check:types
+
+  test:
+    name: "Test"
+    needs: [install, validate_pr_title]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛎 Checkout"
+        uses: actions/checkout@v4
+      - name: "🧶 Setup Yarn Dependencies"
+        uses: ./.github/actions/use-yarn-dependencies
+      - name: "🧪 Test"
+        run: yarn test
