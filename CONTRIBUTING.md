@@ -2,7 +2,7 @@
 
 ### Table Of Contents
 
-* [1. Commit messages](#1-commit-messages)
+* [1. Commit Messages](#1-commit-messages)
   * [1.1. Type](#11-type)
   * [1.2. Scope](#12-scope)
   * [1.3. Subject](#13-subject)
@@ -13,7 +13,7 @@
   * [3.3. Publishing Beta Release To The Default Distribution Channel](#33-publishing-beta-release-to-the-default-distribution-channel)
   * [3.4. Working On A New Future Release](#34-working-on-a-new-future-release)
 
-## 1. Commit messages
+## 1. Commit Messages
 
 Commit messages lean heavily towards the convention set out by [conventional commits](https://www.conventionalcommits.org).
 
