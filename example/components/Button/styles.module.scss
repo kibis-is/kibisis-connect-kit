@@ -1,0 +1,28 @@
+@import "@styles/palette";
+@import "@styles/variables";
+
+.button {
+  appearance: none;
+  background-color: map-get($primary-palette, 500);
+  align-items: center;
+  border: none;
+  border-radius: 1.5rem;
+  color: $white-color;
+  cursor: pointer;
+  display: flex;
+  font-family: $font-family;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  height: 3rem;
+  justify-content: center;
+  min-width: 3rem;
+  outline: transparent solid 2px;
+  padding: 1.5rem;
+  transition: background-color 300ms ease;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: map-get($primary-palette, 600);
+  }
+}

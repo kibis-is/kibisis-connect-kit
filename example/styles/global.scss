@@ -1,0 +1,37 @@
+@import "@styles/variables";
+
+/* fonts */
+
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+  src: url("@fonts/Nunito/Nunito-Bold.woff2") format("woff2"),
+  url("@fonts/Nunito/Nunito-Bold.woff") format("woff"),
+  url("@fonts/Nunito/Nunito-Bold.ttf") format("truetype"),
+  url("@fonts/Nunito/Nunito-Bold.svg#Nunito-Bold") format("svg");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("@fonts/Nunito/Nunito-Regular.woff2") format("woff2"),
+  url("@fonts/Nunito/Nunito-Regular.woff") format("woff"),
+  url("@fonts/Nunito/Nunito-Regular.ttf") format("truetype"),
+  url("@fonts/Nunito/Nunito-Regular.svg#Nunito-Regular") format("svg");
+}
+
+:root {
+  font-family: $font-family;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}

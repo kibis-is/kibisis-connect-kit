@@ -33,12 +33,14 @@
     "node": ">=20.9.0"
   },
   "scripts": {
-    "build": "yarn clean && vite build",
+    "build": "yarn clean && vite build --config vite.config.ts",
     "check:types": "tsc --noEmit",
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "generate:index": "tsx ./scripts/generate-index.ts",
     "lint": "eslint . --ext .ts,tsx --ext .js",
     "prepare": "husky",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,json,ts,tsx}\"",
+    "start:example": "vite dev --config vite.config.example.ts",
     "test": "exit 0"
   },
   "devDependencies": {
@@ -53,9 +55,12 @@
     "@semantic-release/npm": "^12.0.1",
     "@semantic-release/release-notes-generator": "^14.0.1",
     "@types/node": "^22.7.4",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "chalk": "^5.3.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -63,10 +68,15 @@
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "rimraf": "^6.0.1",
+    "sass": "^1.80.3",
     "semantic-release": "^24.1.1",
+    "tsx": "^4.19.1",
     "typescript": "^5.3.3",
     "vite": "^5.4.8",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
     "vite-plugin-dts": "^4.2.3",
     "vite-tsconfig-paths": "^5.0.1"
   }
