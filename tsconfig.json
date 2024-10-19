@@ -3,6 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "alwaysStrict": true,
+    "baseUrl": ".",
     "composite": true,
     "declaration": true,
     "emitDecoratorMetadata": true,
@@ -20,6 +21,14 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "@example/components/*": ["example/components/*"],
+      "@example/containers/*": ["example/containers/*"],
+      "@example/styles/*": ["example/styles/*"],
+      "@fonts/*": ["src/fonts/*"],
+      "@models/*": ["src/models/*"],
+      "@styles/*": ["src/styles/*"]
+    },
     "skipLibCheck": true,
     "strict": false,
     "strictBindCallApply": false,

@@ -1,5 +1,6 @@
-import react from '@vitejs/plugin-react';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
@@ -9,14 +10,22 @@ export default defineConfig({
       formats: ['es'],
       fileName: 'index',
     },
-    rollupOptions: {
-      external: ['react', 'react/jsx-runtime'],
+  },
+  css: {
+    modules: {
+      localsConvention: 'camelCaseOnly',
     },
   },
   plugins: [
-    react(),
+    cssInjectedByJsPlugin(),
     dts({
       tsconfigPath: 'tsconfig.build.json',
     }),
   ],
+  resolve: {
+    alias: {
+      '@fonts': resolve(__dirname, 'src/fonts'),
+      '@styles': resolve(__dirname, 'src/styles'),
+    },
+  },
 });
