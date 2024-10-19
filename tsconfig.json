@@ -27,7 +27,9 @@
       "@example/styles/*": ["example/styles/*"],
       "@fonts/*": ["src/fonts/*"],
       "@models/*": ["src/models/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@types": ["src/types"],
+      "@utils/*": ["src/utils/*"]
     },
     "skipLibCheck": true,
     "strict": false,

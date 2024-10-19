@@ -25,7 +25,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@fonts': resolve(__dirname, 'src/fonts'),
+      '@models': resolve(__dirname, 'src/models'),
       '@styles': resolve(__dirname, 'src/styles'),
+      '@types': resolve(__dirname, 'src/types'),
+      '@utils': resolve(__dirname, 'src/utils'),
     },
   },
 });

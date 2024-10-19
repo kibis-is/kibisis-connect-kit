@@ -79,5 +79,8 @@
     "vite-plugin-css-injected-by-js": "^3.5.2",
     "vite-plugin-dts": "^4.2.3",
     "vite-tsconfig-paths": "^5.0.1"
+  },
+  "dependencies": {
+    "@agoralabs-sh/avm-web-provider": "^1.7.0"
   }
 }

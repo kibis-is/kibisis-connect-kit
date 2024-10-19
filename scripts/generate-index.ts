@@ -7,9 +7,10 @@ import { join } from 'node:path';
  */
 function main(): void {
   const srcDir = join(process.cwd(), 'src');
-  const directories = ['models'];
+  const directories = ['models', 'utils'];
   const exports: string[] = [
     '// exports will be generated automatically using: yarn generate:index',
+    `export * from './types;`,
   ];
   let indexFilePath: string;
   let path: string;

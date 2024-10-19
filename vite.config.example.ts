@@ -4,13 +4,6 @@ import dts from 'vite-plugin-dts';
 import { resolve } from 'node:path';
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-      },
-    },
-  },
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',
@@ -30,6 +23,8 @@ export default defineConfig({
       '@fonts': resolve(__dirname, 'src/fonts'),
       '@models': resolve(__dirname, 'src/models'),
       '@styles': resolve(__dirname, 'src/styles'),
+      '@types': resolve(__dirname, 'src/types'),
+      '@utils': resolve(__dirname, 'src/utils'),
     },
   },
   root: 'example',
