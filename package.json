@@ -34,8 +34,9 @@
   },
   "scripts": {
     "build": "yarn clean && vite build --config vite.config.ts",
-    "check:types": "tsc --noEmit",
-    "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+    "build:example": "rimraf .example && vite build --config vite.config.example.ts",
+    "check:types": "tsc --noEmit --project tsconfig.build.json",
+    "clean": "rimraf dist && rimraf tsconfig.build.tsbuildinfo",
     "generate:index": "tsx ./scripts/generate-index.ts",
     "lint": "eslint . --ext .ts,tsx --ext .js",
     "prepare": "husky",

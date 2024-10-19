@@ -4,6 +4,10 @@ import dts from 'vite-plugin-dts';
 import { resolve } from 'node:path';
 
 export default defineConfig({
+  build: {
+    emptyOutDir: true,
+    outDir: resolve(__dirname, '.example'),
+  },
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',
@@ -12,7 +16,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      tsconfigPath: 'tsconfig.example.json',
+      tsconfigPath: resolve(__dirname, 'tsconfig.example.json'),
     }),
   ],
   resolve: {
