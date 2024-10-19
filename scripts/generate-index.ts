@@ -10,7 +10,7 @@ function main(): void {
   const directories = ['models', 'utils'];
   const exports: string[] = [
     '// exports will be generated automatically using: yarn generate:index',
-    `export * from './types;`,
+    `export * from './types';`,
   ];
   let indexFilePath: string;
   let path: string;
