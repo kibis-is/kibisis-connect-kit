@@ -26,6 +26,10 @@ jobs:
           echo "access=public" >> .npmrc
       - name: "🧶 Setup Yarn Dependencies"
         uses: ./.github/actions/use-yarn-dependencies
+      - name: "📝 Create .env file"
+        uses: ./.github/actions/create-env-file
+        with:
+          provider_id: ${{ vars.PROVIDER_ID }}
       - name: "🏗️ Build"
         run: yarn build
       - name: "🔖 Release"

@@ -4,6 +4,9 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+// versions
+import { version } from './package.json';
+
 export default defineConfig({
   build: {
     lib: {
@@ -22,6 +25,9 @@ export default defineConfig({
         api: 'modern-compiler',
       },
     },
+  },
+  define: {
+    __VERSION__: JSON.stringify(version),
   },
   plugins: [
     cssInjectedByJsPlugin(),
