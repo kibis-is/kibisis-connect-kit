@@ -1,0 +1,47 @@
+name: "Deploy"
+
+on:
+  release:
+    types: [released] # triggered on main branch releases
+
+jobs:
+  install:
+    name: "Install"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛎 Checkout"
+        uses: actions/checkout@v4
+      - name: "🧶 Setup Yarn Dependencies"
+        uses: ./.github/actions/use-yarn-dependencies
+
+
+  build:
+    name: "Build"
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛎 Checkout"
+        uses: actions/checkout@v4
+      - name: "🧶 Setup Yarn Dependencies"
+        uses: ./.github/actions/use-yarn-dependencies
+      - name: "🏗️ Build"
+        run: yarn build
+      - name: "📤 Upload artifact"
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./.example
+
+  deploy:
+    name: "Deploy"
+    needs: [install, build]
+    permissions:
+      pages: write # to deploy to pages
+      id-token: write # to verify the deployment originates from an appropriate source
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🚀 Deploy"
+        id: deployment
+        uses: actions/deploy-pages@v4

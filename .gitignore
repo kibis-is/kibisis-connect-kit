@@ -270,6 +270,8 @@ fabric.properties
 
 ### Miscellaneous
 
+.example/
+
 # dependencies
 .npmrc
 /.pnp
