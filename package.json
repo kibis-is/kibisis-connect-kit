@@ -2,13 +2,7 @@
   "name": "@kibisis/connect-kit",
   "version": "1.0.0",
   "description": "The UI kit to allow dApps to connect to the Kibisis wallets.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "CONTRIBUTING.md",
-    "dist",
-    "README.md"
-  ],
+  "private": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/kibis-is/connect-kit"
@@ -27,11 +21,14 @@
     "blockchain",
     "voi"
   ],
-  "private": false,
   "type": "module",
-  "engines": {
-    "node": ">=20.9.0"
-  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "CONTRIBUTING.md",
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "yarn clean && vite build --config vite.config.ts",
     "build:example": "rimraf .example && vite build --config vite.config.example.ts",
@@ -83,5 +80,6 @@
   },
   "dependencies": {
     "@agoralabs-sh/avm-web-provider": "^1.7.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

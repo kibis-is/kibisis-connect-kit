@@ -19,15 +19,13 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    //    "noUnusedLocals": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
       "@example/components/*": ["example/components/*"],
       "@example/containers/*": ["example/containers/*"],
       "@example/styles/*": ["example/styles/*"],
-      "@fonts/*": ["src/fonts/*"],
       "@models/*": ["src/models/*"],
-      "@styles/*": ["src/styles/*"],
       "@types": ["src/types"],
       "@utils/*": ["src/utils/*"]
     },
