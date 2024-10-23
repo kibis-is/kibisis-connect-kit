@@ -1,4 +1,5 @@
-import { type FC } from 'react';
+import { type FC, useMemo } from 'react';
+import { KibisisConnect } from '../../../dist';
 
 // components
 import Button from '@example/components/Button';
@@ -7,8 +8,18 @@ import Button from '@example/components/Button';
 import styles from './styles.module.scss';
 
 const App: FC = () => {
-  const handleOnConnectClick = () => {
-    console.log('clicked');
+  // states
+  const kibisisConnect = useMemo<KibisisConnect>(
+    () =>
+      new KibisisConnect({
+        debug: true,
+        genesisHash: '5pbhGq04byd0AgV/sbP+yITANqazgKBuaATr85n21wY=', // voi testnet
+      }),
+    []
+  );
+  // handlers
+  const handleOnConnectClick = async () => {
+    await kibisisConnect.connect();
   };
 
   return (

@@ -1,0 +1,48 @@
+@use "@styles/media";
+@use "@styles/palette";
+
+.overlay {
+  align-items: center;
+  background-color: palette.$black-color;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  opacity: 0.4;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.modal {
+  &__container {
+    animation: slideUpFadeIn 300ms ease forwards;
+    background-color: palette.$white-color;
+    height: 100%;
+    max-width: 768px;
+    width: 100%;
+    z-index: 0;
+
+    @include media.tablet-and-up {
+      border-radius: 14px;
+      height: auto;
+    }
+  }
+
+  &__content {
+    padding: 1rem;
+  }
+}
+
+.wrapper {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}

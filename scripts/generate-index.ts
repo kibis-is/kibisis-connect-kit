@@ -36,7 +36,7 @@ function main(): void {
   indexFilePath = join(srcDir, 'index.ts');
 
   // write to index file
-  writeFileSync(indexFilePath, exports.join('\n'), 'utf-8');
+  writeFileSync(indexFilePath, `${exports.join('\n')}\n`, 'utf-8');
 
   console.log(
     `${chalk.yellow('[INFO]')}: generated indexes for components to "./src/index.ts"`

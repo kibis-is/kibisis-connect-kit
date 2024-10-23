@@ -1,3 +1,4 @@
+import preact from '@preact/preset-vite';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
@@ -34,7 +35,10 @@ export default defineConfig({
     dts({
       tsconfigPath: 'tsconfig.build.json',
     }),
-    tsconfigPaths(),
+    preact(),
+    tsconfigPaths({
+      configNames: ['tsconfig.build.json'],
+    }),
   ],
   resolve: {
     alias: {
