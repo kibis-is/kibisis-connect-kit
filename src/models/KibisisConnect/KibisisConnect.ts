@@ -1,4 +1,5 @@
 import {
+  IAccount,
   ARC0027UnknownError,
   AVMWebClient,
 } from '@agoralabs-sh/avm-web-provider';
@@ -14,11 +15,12 @@ import type { INewOptions } from './types';
 
 // utils
 import createLogger from '@utils/createLogger';
+import detectSystemTheme from '@utils/detectSystemTheme';
 
 export default class KibisisConnect {
   // private variables
   private _config: IConfig;
-  private _avmWebClient: AVMWebClient | null = null;
+  private _avmWebClient: AVMWebClient;
   private _logger: ILogger;
   // public variables
   public static readonly displayName = 'KibisisConnect';
@@ -44,12 +46,17 @@ export default class KibisisConnect {
     return `kibisis-connect__${this._config.id}`;
   }
 
-  /**
-   * public functions
-   */
+  private _onCloseUI(): void {
+    const rootElement = window.document.getElementById(this._rootElementID());
 
-  public async connect(): Promise<void> {
-    const _functionName = 'connect';
+    // if there is a root element, remove it
+    if (rootElement) {
+      rootElement.remove();
+    }
+  }
+
+  private _renderUI(): void {
+    const _functionName = '_renderUI';
     const rootElementID = this._rootElementID();
     let rootElement: HTMLElement | null;
 
@@ -76,7 +83,28 @@ export default class KibisisConnect {
       );
     }
 
-    render(h(App, {}), rootElement);
+    render(
+      h(App, {
+        onClose: this._onCloseUI.bind(this),
+        theme: detectSystemTheme(),
+      }),
+      rootElement
+    );
+  }
+
+  /**
+   * public functions
+   */
+
+  public async connect(): Promise<IAccount[]> {
+    this._avmWebClient.onEnable(() => {
+      this._onCloseUI();
+    });
+
+    // TODO: check if connected, if so, return the accounts
+    this._renderUI();
+
+    return [];
   }
 
   public setDebug(debug: boolean) {

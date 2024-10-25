@@ -1,3 +1,11 @@
+export type { default as IBaseComponentProps } from './IBaseComponentProps';
 export type { default as IConfig } from './IConfig';
 export type { default as ILogger } from './ILogger';
+export type { default as ITypographyProps } from './ITypographyProps';
+export type { default as TIconProps } from './TIconProps';
 export type { default as TLogLevel } from './TLogLevel';
+export type { default as IStackProps } from './IStackProps';
+export type { default as TSizes } from './TSizes';
+export type { default as TStackAlign } from './TStackAlign';
+export type { default as TStackJustify } from './TStackJustify';
+export type { default as TTheme } from './TTheme';

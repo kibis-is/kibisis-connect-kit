@@ -4,7 +4,7 @@
 
 .button {
   appearance: none;
-  background-color: map.get(palette.$primary-palette, 500);
+  background-color: map.get(palette.$primary-light-palette, 500);
   align-items: center;
   border: none;
   border-radius: 1.5rem;
@@ -24,6 +24,6 @@
   white-space: nowrap;
 
   &:hover {
-    background-color: map.get(palette.$primary-palette, 600);
+    background-color: map.get(palette.$primary-light-palette, 600);
   }
 }

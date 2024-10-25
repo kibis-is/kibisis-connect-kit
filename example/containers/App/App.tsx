@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { type FC, useEffect, useMemo } from 'react';
 import { KibisisConnect } from '../../../dist';
 
 // components
@@ -21,6 +21,10 @@ const App: FC = () => {
   const handleOnConnectClick = async () => {
     await kibisisConnect.connect();
   };
+
+  useEffect(() => {
+    (async () => await kibisisConnect.connect())();
+  }, []);
 
   return (
     <div className={styles.wrapper}>
