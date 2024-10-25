@@ -4,7 +4,6 @@
 
 .heading {
   @include mixins.reset-text-styles;
-  @include mixins.full-width;
   color: palette.default-font-color("light");
   font-family: variables.$font-family;
   font-size: 1.25rem; // 20px
@@ -19,6 +18,10 @@
 
   &--bold {
     font-weight: 700;
+  }
+
+  &--full-width {
+    width: 100%;
   }
 
   &--left {

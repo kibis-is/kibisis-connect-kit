@@ -1,9 +1,7 @@
-@use "@styles/mixins";
 @use "@styles/variables";
 @use "sass:map";
 
 .stack {
-  @include mixins.full-width;
   align-items: flex-start;
   display: flex;
   flex-direction: row;
@@ -19,6 +17,10 @@
 
   &--justify-between {
     justify-content: space-between;
+  }
+
+  &--full-width {
+    width: 100%;
   }
 
   &--justify-center {

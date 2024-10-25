@@ -53,30 +53,9 @@ $header-icon-size: 3rem; // 48px
     justify-content: space-between;
     padding: map.get(variables.$spacing, md);
 
-    &__controls {
-      align-items: center;
-      display: flex;
-      gap: map.get(variables.$spacing, xs);
-      justify-content: center;
-    }
-
-    &__banner {
-      align-items: center;
-      display: flex;
-      flex-grow: 1;
-      gap: map.get(variables.$spacing, sm);
-      justify-content: flex-start;
-      text-decoration: none;
-
-      &:active,
-      &:hover {
-        text-decoration: none;
-      }
-
-      &__icon {
-        height: $header-icon-size;
-        width: $header-icon-size;
-      }
+    &__icon {
+      height: $header-icon-size;
+      width: $header-icon-size;
     }
   }
 

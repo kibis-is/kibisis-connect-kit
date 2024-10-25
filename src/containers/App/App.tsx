@@ -91,21 +91,16 @@ export default class App extends Component<IProps, IState> {
         <div className={clsx(styles.modalContainer)}>
           {/*header*/}
           <div className={clsx(styles.modalHeader)}>
-            <a
-              className={clsx(styles.modalHeaderBanner)}
-              href="https://kibis.is"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <HStack align="center" spacing="sm" fullWidth={true}>
               <KibisisIcon
-                className={clsx(styles.modalHeaderBannerIcon)}
+                className={clsx(styles.modalHeaderIcon)}
                 color={primaryColor}
               />
 
               <Heading text="Kibisis Connect" textAlign="left" theme={theme} />
-            </a>
+            </HStack>
 
-            <div className={clsx(styles.modalHeaderControls)}>
+            <HStack align="center" justify="center" spacing="xs">
               {/*change theme button*/}
               <IconButton
                 icon={theme === 'dark' ? <SunnyIcon /> : <MoonIcon />}
@@ -119,7 +114,8 @@ export default class App extends Component<IProps, IState> {
                 onClick={this._handleOnClose.bind(this)}
                 theme={theme}
               />
-            </div>
+            </HStack>
+            <div className={clsx(styles.modalHeaderControls)}></div>
           </div>
 
           {/*content*/}

@@ -4,12 +4,6 @@
   transition: background-color 300ms ease;
 }
 
-@mixin full-width {
-  &--full-width {
-    width: 100%;
-  }
-}
-
 @mixin reset-text-styles {
   font-family: variables.$font-family;
   font-weight: 400;

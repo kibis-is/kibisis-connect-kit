@@ -71,6 +71,9 @@ $white-color: #FFFFFF;
 @function border-color($theme: "light") {
   @return functions.get-color-value($theme, map.get($gray-palette, 300), map.get($white-alpha-palette, 400));
 }
+@function focus-border-color($theme: "light") {
+  @return functions.get-color-value($theme, map.get($primary-light-palette, 500), map.get($primary-dark-palette, 500));
+}
 
 /* font colors */
 
