@@ -12,7 +12,8 @@ import { APK_DIRECT_DOWNLOAD_URL, PLAY_STORE_URL } from '@constants';
 
 // icons
 import AndroidIcon from '@icons/AndroidIcon';
-import AppStoreIcon from '@icons/AppStoreIcon';
+// import AppStoreIcon from '@icons/AppStoreIcon';
+// import FDroidIcon from '@icons/FDroidIcon';
 import PlayStoreIcon from '@icons/PlayStoreIcon';
 
 // types
@@ -53,13 +54,21 @@ const MobileConnect: FunctionComponent<IProps> = ({ theme }) => {
               />
             </Link>
 
-            <Link href="" isExternal={true}>
-              <AppStoreIcon
-                aria-label="App Store icon."
-                height={platformIconSize}
-                width={platformIconSize}
-              />
-            </Link>
+            {/*<Link href={APP_STORE_URL} isExternal={true}>*/}
+            {/*  <AppStoreIcon*/}
+            {/*    aria-label="App Store icon."*/}
+            {/*    height={platformIconSize}*/}
+            {/*    width={platformIconSize}*/}
+            {/*  />*/}
+            {/*</Link>*/}
+
+            {/*<Link href={F_DROID_URL} isExternal={true}>*/}
+            {/*  <FDroidIcon*/}
+            {/*    aria-label="F-Droid icon."*/}
+            {/*    height={platformIconSize}*/}
+            {/*    width={platformIconSize}*/}
+            {/*  />*/}
+            {/*</Link>*/}
 
             <Link href={APK_DIRECT_DOWNLOAD_URL} isExternal={true}>
               <AndroidIcon

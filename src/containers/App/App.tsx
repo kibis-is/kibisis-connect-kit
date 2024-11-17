@@ -112,10 +112,12 @@ export default class App extends Component<IProps, IState> {
             spacing="xs"
           >
             <HStack align="center" spacing="sm" fullWidth={true}>
-              <KibisisIcon
-                className={clsx(styles.modalHeaderIcon)}
-                color={primaryColor}
-              />
+              <Link href={KIBISIS_URL} isExternal={true}>
+                <KibisisIcon
+                  className={clsx(styles.modalHeaderIcon)}
+                  color={primaryColor}
+                />
+              </Link>
 
               <Heading textAlign="left" theme={theme}>
                 Kibisis Connect
