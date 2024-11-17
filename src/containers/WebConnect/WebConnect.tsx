@@ -8,6 +8,9 @@ import Stack from '@components/Stack';
 import Text from '@components/Text';
 import VStack from '@components/VStack';
 
+// constants
+import { CHROME_STORE_URL } from '@constants';
+
 // hooks
 import useDefaultTextColor from '@hooks/useDefaultTextColor';
 
@@ -19,7 +22,6 @@ import LaptopIcon from '@icons/LaptopIcon';
 
 // types
 import type { IBaseComponentProps } from '@types';
-import { CHROME_STORE_URL } from '../../constants/URLs';
 
 const WebConnect: FunctionComponent<IBaseComponentProps> = ({
   theme = 'dark',
