@@ -87,6 +87,9 @@
     "@agoralabs-sh/avm-web-provider": "^1.7.0",
     "@stablelib/random": "^2.0.0",
     "clsx": "^2.1.1",
-    "preact": "^10.24.3"
+    "i": "^0.3.7",
+    "npm": "^10.9.0",
+    "preact": "^10.24.3",
+    "qr-code-styling": "^1.8.4"
   }
 }
