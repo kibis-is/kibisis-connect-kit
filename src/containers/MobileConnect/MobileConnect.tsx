@@ -1,4 +1,7 @@
-import type { FunctionComponent } from 'preact';
+import clsx from 'clsx';
+import { FunctionComponent } from 'preact';
+import { useEffect, useMemo, useRef } from 'preact/hooks';
+import QRCodeStyling from 'qr-code-styling';
 
 // components
 import HStack from '@components/HStack';
@@ -13,15 +16,67 @@ import { APK_DIRECT_DOWNLOAD_URL, PLAY_STORE_URL } from '@constants';
 // icons
 import AndroidIcon from '@icons/AndroidIcon';
 // import AppStoreIcon from '@icons/AppStoreIcon';
+// import KibisisIcon from '@icons/KibisisIcon';
 // import FDroidIcon from '@icons/FDroidIcon';
 import PlayStoreIcon from '@icons/PlayStoreIcon';
+
+// images
+import qrCodeIconSVG from '/images/qr_code_icon.svg?raw';
+
+// hooks
+import usePrimaryColor from '@hooks/usePrimaryColor';
+
+// styles
+import styles from './styles.module.scss';
 
 // types
 import type { IProps } from './types';
 
-const MobileConnect: FunctionComponent<IProps> = ({ theme }) => {
+// utils
+import svgToDataURI from '@utils/svgToDataURI';
+
+const MobileConnect: FunctionComponent<IProps> = ({ theme = 'dark' }) => {
+  const qrCodeRef = useRef<HTMLDivElement | null>(null);
+  // hooks
+  const primaryLightColor = usePrimaryColor('light');
+  // memo
+  const qrCode = useMemo(
+    () =>
+      new QRCodeStyling({
+        backgroundOptions: {
+          color: '#ffffff',
+        },
+        cornersDotOptions: {
+          type: 'dot',
+        },
+        cornersSquareOptions: {
+          type: 'dot',
+        },
+        data: 'https://www.facebook.com/',
+        dotsOptions: {
+          color: primaryLightColor,
+          type: 'dots',
+        },
+        height: 300,
+        // image: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg',
+        image: svgToDataURI(qrCodeIconSVG),
+        imageOptions: {
+          crossOrigin: 'anonymous',
+          margin: 10,
+        },
+        type: 'svg',
+        width: 300,
+      }),
+    []
+  );
   // misc
   const platformIconSize = '2rem';
+
+  useEffect(() => {
+    if (qrCodeRef.current) {
+      qrCode.append(qrCodeRef.current);
+    }
+  }, [qrCode, qrCodeRef]);
 
   return (
     <Stack align="center" fullWidth={true} justify="center">
@@ -31,12 +86,16 @@ const MobileConnect: FunctionComponent<IProps> = ({ theme }) => {
         maxWidth={400}
         minHeight={364}
         justify="between"
+        spacing="md"
       >
         <VStack align="center" fullWidth={true} spacing="sm">
           {/*caption*/}
           <Text textAlign="center" theme={theme}>
             Open your Kibisis app on your device and scan the below code.
           </Text>
+
+          {/*qr code*/}
+          <div className={clsx(styles.qrCode)} ref={qrCodeRef}></div>
         </VStack>
 
         <VStack align="center" fullWidth={true} spacing="sm">

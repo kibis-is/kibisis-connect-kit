@@ -43,6 +43,7 @@ const WebConnect: FunctionComponent<IProps> = ({
         maxWidth={400}
         minHeight={364}
         justify="between"
+        spacing="md"
       >
         <VStack align="center" fullWidth={true} spacing="sm">
           {/*laptop icon*/}
