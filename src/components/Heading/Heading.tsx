@@ -9,9 +9,9 @@ import type { ITypographyProps } from '@types';
 
 const Heading: FunctionComponent<ITypographyProps> = ({
   bold = false,
+  children,
   fullWidth = false,
   size = 'md',
-  text,
   textAlign = 'center',
   theme = 'dark',
 }) => {
@@ -59,7 +59,7 @@ const Heading: FunctionComponent<ITypographyProps> = ({
       )}
       data-theme={theme}
     >
-      {text}
+      {children}
     </h1>
   );
 };

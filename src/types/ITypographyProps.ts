@@ -4,8 +4,8 @@ import type TSizes from './TSizes';
 
 interface ITypographyProps extends IBaseComponentProps {
   bold?: boolean;
+  children: any;
   fullWidth?: boolean;
-  text: string;
   textAlign?: 'left' | 'center' | 'right';
   size?: TSizes;
 }

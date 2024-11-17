@@ -65,6 +65,9 @@ $white-color: #FFFFFF;
 @function button-background-color($theme: "light") {
   @return functions.get-color-value($theme, map.get($primary-light-palette, 500), map.get($primary-dark-palette, 500));
 }
+@function button-hover-background-color($theme: "light") {
+  @return functions.get-color-value($theme, map.get($primary-light-palette, 600), map.get($primary-dark-palette, 600));
+}
 
 /* border colors */
 
@@ -82,6 +85,12 @@ $white-color: #FFFFFF;
 }
 @function default-font-color($theme: "light") {
   @return functions.get-color-value($theme, map.get($gray-palette, 600), map.get($white-alpha-palette, 800));
+}
+@function link-font-color($theme: "light") {
+  @return functions.get-color-value($theme, map.get($primary-light-palette, 500), map.get($primary-dark-palette, 500));
+}
+@function link-active-font-color($theme: "light") {
+  @return functions.get-color-value($theme, map.get($primary-light-palette, 600), map.get($primary-dark-palette, 600));
 }
 @function sub-font-color($theme: "light") {
   @return functions.get-color-value($theme, map.get($gray-palette, 500), map.get($white-alpha-palette, 700));

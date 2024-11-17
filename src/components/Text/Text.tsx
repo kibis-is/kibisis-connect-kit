@@ -9,9 +9,9 @@ import type { ITypographyProps } from '@types';
 
 const Text: FunctionComponent<ITypographyProps> = ({
   bold = false,
+  children,
   fullWidth = false,
   size = 'md',
-  text,
   textAlign = 'center',
   theme = 'dark',
 }) => {
@@ -56,7 +56,7 @@ const Text: FunctionComponent<ITypographyProps> = ({
       )}
       data-theme={theme}
     >
-      {text}
+      {children}
     </p>
   );
 };

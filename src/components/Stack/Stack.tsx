@@ -12,8 +12,15 @@ const Stack: FunctionComponent<IStackProps> = ({
   direction = 'horizontal',
   children,
   fullWidth = false,
+  grow = false,
+  height,
   justify = 'start',
+  maxHeight,
+  maxWidth,
+  minHeight,
+  minWidth,
   spacing,
+  width,
 }) => {
   let alignStyle = styles.stackAlignStart;
   let justifyStyle = styles.stackJustifyStart;
@@ -79,8 +86,31 @@ const Stack: FunctionComponent<IStackProps> = ({
         direction === 'vertical'
           ? styles.stackVertical
           : styles.stackHorizontal,
-        fullWidth && styles.stackFullWidth
+        fullWidth && styles.stackFullWidth,
+        grow && styles.stackGrow
       )}
+      style={{
+        ...(height && {
+          height: typeof height === 'number' ? `${height}px` : height,
+        }),
+        ...(maxHeight && {
+          maxHeight:
+            typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight,
+        }),
+        ...(maxWidth && {
+          maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
+        }),
+        ...(minHeight && {
+          minHeight:
+            typeof minHeight === 'number' ? `${minHeight}px` : minHeight,
+        }),
+        ...(minWidth && {
+          minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
+        }),
+        ...(width && {
+          width: typeof height === 'number' ? `${width}px` : width,
+        }),
+      }}
     >
       {children}
     </div>

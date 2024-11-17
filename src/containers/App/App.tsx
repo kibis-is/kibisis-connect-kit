@@ -8,6 +8,10 @@ import HStack from '@components/HStack';
 import IconButton from '@components/IconButton';
 import Text from '@components/Text';
 
+// containers
+import MobileConnect from '@containers/MobileConnect';
+import WebConnect from '@containers/WebConnect';
+
 // hooks
 import useDefaultTextColor from '@hooks/useDefaultTextColor';
 import usePrimaryColor from '@hooks/usePrimaryColor';
@@ -97,13 +101,15 @@ export default class App extends Component<IProps, IState> {
                 color={primaryColor}
               />
 
-              <Heading text="Kibisis Connect" textAlign="left" theme={theme} />
+              <Heading textAlign="left" theme={theme}>
+                Kibisis Connect
+              </Heading>
             </HStack>
 
             <HStack align="center" justify="center" spacing="xs">
               {/*change theme button*/}
               <IconButton
-                icon={theme === 'dark' ? <SunnyIcon /> : <MoonIcon />}
+                icon={theme === 'dark' ? <MoonIcon /> : <SunnyIcon />}
                 onClick={this._handleOnThemeClick.bind(this)}
                 theme={theme}
               />
@@ -120,16 +126,14 @@ export default class App extends Component<IProps, IState> {
 
           {/*content*/}
           <div className={clsx(styles.modalContent)}>
-            <Text
-              size="lg"
-              text="Choose how you would like to connect to Kibisis."
-              theme={theme}
-            />
+            <Text size="lg" theme={theme}>
+              Choose how you would like to connect to Kibisis.
+            </Text>
 
             <Accordion
               items={[
                 {
-                  content: <p>Test</p>,
+                  content: <MobileConnect theme={theme} />,
                   title: (
                     <HStack fullWidth={true} spacing="sm">
                       <PhoneIcon
@@ -137,17 +141,14 @@ export default class App extends Component<IProps, IState> {
                         color={defaultTextColor}
                       />
 
-                      <Heading
-                        size="sm"
-                        text="Connect Via Mobile"
-                        textAlign="left"
-                        theme={theme}
-                      />
+                      <Heading size="sm" textAlign="left" theme={theme}>
+                        Connect Via Mobile
+                      </Heading>
                     </HStack>
                   ),
                 },
                 {
-                  content: <p>Test</p>,
+                  content: <WebConnect theme={theme} />,
                   title: (
                     <HStack fullWidth={true} spacing="sm">
                       <GlobeIcon
@@ -155,12 +156,9 @@ export default class App extends Component<IProps, IState> {
                         color={defaultTextColor}
                       />
 
-                      <Heading
-                        size="sm"
-                        text="Connect Via Web"
-                        textAlign="left"
-                        theme={theme}
-                      />
+                      <Heading size="sm" textAlign="left" theme={theme}>
+                        Connect Via Web
+                      </Heading>
                     </HStack>
                   ),
                 },
