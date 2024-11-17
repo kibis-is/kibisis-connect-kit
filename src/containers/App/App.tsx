@@ -62,6 +62,10 @@ export default class App extends Component<IProps, IState> {
     });
   }
 
+  private _handleOnLaunchWeb(): void {
+    this.props.onLaunchWeb();
+  }
+
   private _handleOnThemeClick(): void {
     this.setState({
       theme: this.state.theme === 'dark' ? 'light' : 'dark',
@@ -148,7 +152,12 @@ export default class App extends Component<IProps, IState> {
                   ),
                 },
                 {
-                  content: <WebConnect theme={theme} />,
+                  content: (
+                    <WebConnect
+                      onSelect={this._handleOnLaunchWeb.bind(this)}
+                      theme={theme}
+                    />
+                  ),
                   title: (
                     <HStack fullWidth={true} spacing="sm">
                       <GlobeIcon

@@ -1,7 +1,9 @@
 export type { default as IBaseComponentProps } from './IBaseComponentProps';
 export type { default as IConfig } from './IConfig';
 export type { default as ILogger } from './ILogger';
+export type { default as IMobileConnectionConfig } from './IMobileConnectionConfig';
 export type { default as ITypographyProps } from './ITypographyProps';
+export type { default as IWebConnectionConfig } from './IWebConnectionConfig';
 export type { default as TIconProps } from './TIconProps';
 export type { default as TLogLevel } from './TLogLevel';
 export type { default as IStackProps } from './IStackProps';

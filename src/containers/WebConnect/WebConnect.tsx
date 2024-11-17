@@ -21,9 +21,10 @@ import ChromeIcon from '@icons/ChromeIcon';
 import LaptopIcon from '@icons/LaptopIcon';
 
 // types
-import type { IBaseComponentProps } from '@types';
+import type { IProps } from './types';
 
-const WebConnect: FunctionComponent<IBaseComponentProps> = ({
+const WebConnect: FunctionComponent<IProps> = ({
+  onSelect,
   theme = 'dark',
 }) => {
   // hooks
@@ -31,6 +32,8 @@ const WebConnect: FunctionComponent<IBaseComponentProps> = ({
   // misc
   const browserIconSize = '2rem';
   const laptopIconSize = '4rem';
+  // handlers
+  const handleOnLaunchClick = () => onSelect();
 
   return (
     <Stack align="center" fullWidth={true} justify="center">
@@ -74,7 +77,12 @@ const WebConnect: FunctionComponent<IBaseComponentProps> = ({
 
         <VStack align="center" fullWidth={true} spacing="sm">
           {/*launch button*/}
-          <Button fullWidth={true} rightIcon={<ArrowRightIcon />} theme={theme}>
+          <Button
+            fullWidth={true}
+            onClick={handleOnLaunchClick}
+            rightIcon={<ArrowRightIcon />}
+            theme={theme}
+          >
             Launch
           </Button>
 
