@@ -9,6 +9,7 @@ import type { IStackProps } from '@types';
 
 const Stack: FunctionComponent<IStackProps> = ({
   align = 'start',
+  className,
   direction = 'horizontal',
   children,
   fullWidth = false,
@@ -19,6 +20,13 @@ const Stack: FunctionComponent<IStackProps> = ({
   maxWidth,
   minHeight,
   minWidth,
+  padding,
+  paddingBottom,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  paddingX,
+  paddingY,
   spacing,
   width,
 }) => {
@@ -79,6 +87,7 @@ const Stack: FunctionComponent<IStackProps> = ({
   return (
     <div
       className={clsx(
+        className,
         styles.stack,
         alignStyle,
         justifyStyle,
@@ -106,6 +115,43 @@ const Stack: FunctionComponent<IStackProps> = ({
         }),
         ...(minWidth && {
           minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
+        }),
+        ...(padding && {
+          padding:
+            typeof padding === 'number'
+              ? `${padding}px ${padding}px ${padding}px ${padding}px`
+              : `${padding} ${padding} ${padding} ${padding}`,
+        }),
+        ...(paddingBottom && {
+          paddingBottom:
+            typeof paddingBottom === 'number'
+              ? `${paddingBottom}px`
+              : paddingBottom,
+        }),
+        ...(paddingLeft && {
+          paddingLeft:
+            typeof paddingLeft === 'number' ? `${paddingLeft}px` : paddingLeft,
+        }),
+        ...(paddingRight && {
+          paddingRight:
+            typeof paddingRight === 'number'
+              ? `${paddingRight}px`
+              : paddingRight,
+        }),
+        ...(paddingTop && {
+          paddingTop:
+            typeof paddingTop === 'number' ? `${paddingTop}px` : paddingTop,
+        }),
+        ...(paddingX && {
+          paddingLeft:
+            typeof paddingX === 'number' ? `${paddingX}px` : paddingX,
+          paddingRight:
+            typeof paddingX === 'number' ? `${paddingX}px` : paddingX,
+        }),
+        ...(paddingY && {
+          paddingBottom:
+            typeof paddingY === 'number' ? `${paddingY}px` : paddingY,
+          paddingTop: typeof paddingY === 'number' ? `${paddingY}px` : paddingY,
         }),
         ...(width && {
           width: typeof height === 'number' ? `${width}px` : width,

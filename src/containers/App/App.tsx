@@ -6,11 +6,17 @@ import Accordion from '@components/Accordion';
 import Heading from '@components/Heading';
 import HStack from '@components/HStack';
 import IconButton from '@components/IconButton';
+import Link from '@components/Link';
+import Spacer from '@components/Spacer';
 import Text from '@components/Text';
+import VStack from '@components/VStack';
 
 // containers
 import MobileConnect from '@containers/MobileConnect';
 import WebConnect from '@containers/WebConnect';
+
+// constants
+import { DEFAULT_PADDING, KIBISIS_URL } from '@constants';
 
 // hooks
 import useDefaultTextColor from '@hooks/useDefaultTextColor';
@@ -96,9 +102,15 @@ export default class App extends Component<IProps, IState> {
         <div className={clsx(styles.modalOverlay)}></div>
 
         {/*modal*/}
-        <div className={clsx(styles.modalContainer)}>
+        <VStack className={clsx(styles.modalContainer)} fullWidth={true}>
           {/*header*/}
-          <div className={clsx(styles.modalHeader)}>
+          <HStack
+            align="center"
+            fullWidth={true}
+            justify="between"
+            padding={DEFAULT_PADDING}
+            spacing="xs"
+          >
             <HStack align="center" spacing="sm" fullWidth={true}>
               <KibisisIcon
                 className={clsx(styles.modalHeaderIcon)}
@@ -125,11 +137,16 @@ export default class App extends Component<IProps, IState> {
                 theme={theme}
               />
             </HStack>
-            <div className={clsx(styles.modalHeaderControls)}></div>
-          </div>
+          </HStack>
 
           {/*content*/}
-          <div className={clsx(styles.modalContent)}>
+          <VStack
+            align="center"
+            fullWidth={true}
+            justify="center"
+            padding={DEFAULT_PADDING}
+            spacing="md"
+          >
             <Text size="lg" theme={theme}>
               Choose how you would like to connect to Kibisis.
             </Text>
@@ -174,8 +191,28 @@ export default class App extends Component<IProps, IState> {
               ]}
               theme={theme}
             />
-          </div>
-        </div>
+          </VStack>
+
+          <Spacer />
+
+          {/*footer*/}
+          <VStack
+            align="center"
+            fullWidth={true}
+            justify="center"
+            paddingBottom={DEFAULT_PADDING}
+            paddingX={DEFAULT_PADDING}
+          >
+            {/*privacy policy*/}
+            <Text size="sm" textAlign="center" theme={theme}>
+              By connecting to Kibisis, you agree to the Kibisis{' '}
+              <Link href={`${KIBISIS_URL}/privacy-policy`} isExternal={true}>
+                privacy policy
+              </Link>
+              .
+            </Text>
+          </VStack>
+        </VStack>
       </div>
     );
   }

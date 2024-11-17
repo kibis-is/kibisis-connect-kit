@@ -25,10 +25,8 @@ $header-icon-size: 3rem; // 48px
   &__container {
     animation: slideUpFadeIn 300ms ease forwards;
     background-color: palette.background-color("light");
-    height: 100%;
     min-height: 500px;
     max-width: variables.$tablet-width;
-    width: 100%;
     z-index: 0;
 
     @include media.tablet-and-up {
@@ -37,26 +35,9 @@ $header-icon-size: 3rem; // 48px
     }
   }
 
-  &__content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: map.get(variables.$spacing, md);
-    justify-content: center;
-    padding: map.get(variables.$spacing, md);
-  }
-
-  &__header {
-    align-items: flex-start;
-    display: flex;
-    gap: map.get(variables.$spacing, xs);
-    justify-content: space-between;
-    padding: map.get(variables.$spacing, md);
-
-    &__icon {
-      height: $header-icon-size;
-      width: $header-icon-size;
-    }
+  &__header-icon {
+    height: $header-icon-size;
+    width: $header-icon-size;
   }
 
   &__overlay {

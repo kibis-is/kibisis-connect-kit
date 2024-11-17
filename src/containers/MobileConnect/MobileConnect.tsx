@@ -1,18 +1,78 @@
-// import clsx from 'clsx';
 import type { FunctionComponent } from 'preact';
 
 // components
 import HStack from '@components/HStack';
-// import Text from '@components/Text';
+import Link from '@components/Link';
+import Stack from '@components/Stack';
+import Text from '@components/Text';
+import VStack from '@components/VStack';
 
-// styles
-// import styles from './styles.module.scss';
+// constants
+import { APK_DIRECT_DOWNLOAD_URL, PLAY_STORE_URL } from '@constants';
+
+// icons
+import AndroidIcon from '@icons/AndroidIcon';
+import AppStoreIcon from '@icons/AppStoreIcon';
+import PlayStoreIcon from '@icons/PlayStoreIcon';
 
 // types
-import type { IBaseComponentProps } from '@types';
+import type { IProps } from './types';
 
-const MobileConnect: FunctionComponent<IBaseComponentProps> = () => {
-  return <HStack spacing="sm" fullWidth={true}></HStack>;
+const MobileConnect: FunctionComponent<IProps> = ({ theme }) => {
+  // misc
+  const platformIconSize = '2rem';
+
+  return (
+    <Stack align="center" fullWidth={true} justify="center">
+      <VStack
+        align="center"
+        fullWidth={true}
+        maxWidth={400}
+        minHeight={364}
+        justify="between"
+      >
+        <VStack align="center" fullWidth={true} spacing="sm">
+          {/*caption*/}
+          <Text textAlign="center" theme={theme}>
+            Open your Kibisis app on your device and scan the below code.
+          </Text>
+        </VStack>
+
+        <VStack align="center" fullWidth={true} spacing="sm">
+          <Text size="sm" textAlign="center" theme={theme}>
+            Don't have Kibisis installed?
+          </Text>
+
+          {/*store icons*/}
+          <HStack align="center" fullWidth={true} justify="center" spacing="sm">
+            <Link href={PLAY_STORE_URL} isExternal={true}>
+              <PlayStoreIcon
+                aria-label="Play Store icon."
+                height={platformIconSize}
+                width={platformIconSize}
+              />
+            </Link>
+
+            <Link href="" isExternal={true}>
+              <AppStoreIcon
+                aria-label="App Store icon."
+                height={platformIconSize}
+                width={platformIconSize}
+              />
+            </Link>
+
+            <Link href={APK_DIRECT_DOWNLOAD_URL} isExternal={true}>
+              <AndroidIcon
+                aria-label="Android icon."
+                height={platformIconSize}
+                width={platformIconSize}
+              />
+            </Link>
+          </HStack>
+        </VStack>
+      </VStack>
+    </Stack>
+  );
 };
 
 export default MobileConnect;

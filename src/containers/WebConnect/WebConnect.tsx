@@ -59,8 +59,18 @@ const WebConnect: FunctionComponent<IProps> = ({
         </VStack>
 
         <VStack align="center" fullWidth={true} spacing="sm">
+          {/*launch button*/}
+          <Button
+            fullWidth={true}
+            onClick={handleOnLaunchClick}
+            rightIcon={<ArrowRightIcon />}
+            theme={theme}
+          >
+            Launch
+          </Button>
+
           <Text size="sm" textAlign="center" theme={theme}>
-            Don't have Kibisis installed? Select your browser:
+            Don't have Kibisis installed?
           </Text>
 
           {/*browser icons*/}
@@ -73,27 +83,6 @@ const WebConnect: FunctionComponent<IProps> = ({
               <BraveIcon height={browserIconSize} width={browserIconSize} />
             </Link>
           </HStack>
-        </VStack>
-
-        <VStack align="center" fullWidth={true} spacing="sm">
-          {/*launch button*/}
-          <Button
-            fullWidth={true}
-            onClick={handleOnLaunchClick}
-            rightIcon={<ArrowRightIcon />}
-            theme={theme}
-          >
-            Launch
-          </Button>
-
-          {/*privacy policy*/}
-          <Text size="sm" textAlign="center" theme={theme}>
-            By connecting to Kibisis, you agree to the Kibisis{' '}
-            <Link href="https://kibis.is/privacy-policy" isExternal={true}>
-              privacy policy
-            </Link>
-            .
-          </Text>
         </VStack>
       </VStack>
     </Stack>
