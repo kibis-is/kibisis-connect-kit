@@ -69,7 +69,7 @@ const MobileConnect: FunctionComponent<IProps> = ({
         type: 'svg',
         width: 300,
       }),
-    []
+    [walletConnectURI]
   );
   // misc
   const platformIconSize = '2rem';

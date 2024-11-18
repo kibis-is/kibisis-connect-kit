@@ -22,10 +22,10 @@ import type { IConfig, ILogger } from '@types';
 import type { IInitOptions, INewOptions } from './types';
 
 // utils
-import chainReferenceFromGenesisHash from '@utils/chainReferenceFromGenesisHash';
 import createClientMetadata from '@utils/createClientMetadata';
 import createLogger from '@utils/createLogger';
 import detectSystemTheme from '@utils/detectSystemTheme';
+import namespacesFromGenesisHash from '@utils/namespacesFromGenesisHash';
 
 export default class KibisisConnect {
   // public static variables
@@ -256,22 +256,7 @@ export default class KibisisConnect {
 
       // get the walletconnect uri
       const { uri } = await this._walletConnectClient.connect({
-        requiredNamespaces: {
-          algorand: {
-            chains: [
-              `algorand:${chainReferenceFromGenesisHash(this._config.genesisHash)}`,
-            ],
-            events: [],
-            methods: ['algo_signTxn'],
-          },
-          avm: {
-            chains: [
-              `avm:${chainReferenceFromGenesisHash(this._config.genesisHash)}`,
-            ],
-            events: [],
-            methods: ['avm_signTransactions', 'avm_signMessage'],
-          },
-        },
+        requiredNamespaces: namespacesFromGenesisHash(this._config.genesisHash),
       });
 
       // render the ui

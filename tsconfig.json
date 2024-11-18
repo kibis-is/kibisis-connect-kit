@@ -27,7 +27,6 @@
       "@components/*": ["src/components/*"],
       "@containers/*": ["src/containers/*"],
       "@constants": ["src/constants"],
-      "@contexts": ["src/contexts"],
       "@enums": ["src/enums"],
       "@hooks/*": ["src/hooks/*"],
       "@icons/*": ["src/icons/*"],
