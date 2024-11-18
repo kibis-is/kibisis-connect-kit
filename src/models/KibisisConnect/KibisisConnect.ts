@@ -166,6 +166,16 @@ export default class KibisisConnect {
     return this._config;
   }
 
+  /**
+   * Launches the UI and allows the user to connect to the web extension or set up a connection using WalletConnect. If
+   * the connection was successful, the allow accounts are returned and the connection object of the config will be
+   * instantiated.
+   * @returns {Promise<IAccount[]>} A promise that resolves the allowed accounts.
+   * @throws {ARC0027UnknownError} If there is no `window` context or there was an error on the provider.
+   * @throws {ARC0027MethodTimedOutError} If the user did not respond to the provider request.
+   * @throws {ARC0027NetworkNotSupportedError} If the provided genesis hash is not supported.
+   * @public
+   */
   public async connect(): Promise<IAccount[]> {
     return new Promise((resolve, reject) => {
       const _functionName = 'connect';
@@ -208,6 +218,23 @@ export default class KibisisConnect {
         rootElement
       );
     });
+  }
+
+  /**
+   * Sends a disconnect request.
+   * @public
+   */
+  public async disconnect(): Promise<void> {
+    if (this._config.connection?.__delimiter === ConnectionTypeEnum.Web) {
+      this._avmWebClient.disable({
+        genesisHash: this._config.genesisHash,
+        providerId: this.providerID(),
+        sessionIds: [this._config.connection.sessionID],
+      });
+    }
+
+    // reset connection
+    this._reset();
   }
 
   /**
