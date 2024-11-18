@@ -3,6 +3,7 @@ import {
   ARC0027MethodTimedOutError,
   ARC0027UnknownError,
   AVMWebClient,
+  BaseARC0027Error,
   DEFAULT_REQUEST_TIMEOUT,
   type IAccount,
 } from '@agoralabs-sh/avm-web-provider';
@@ -29,12 +30,15 @@ export default class KibisisConnect {
   // private variables
   private _config: IConfig;
   private _avmWebClient: AVMWebClient;
+  private _avmWebClientListenerIDs: string[];
   private _logger: ILogger;
+  private _timerIDs: number[];
 
   constructor({ debug = false, genesisHash }: INewOptions) {
     this._avmWebClient = AVMWebClient.init({
       debug,
     });
+    this._avmWebClientListenerIDs = [];
     this._config = {
       connection: null,
       debug,
@@ -42,6 +46,104 @@ export default class KibisisConnect {
       id: randomString(8),
     };
     this._logger = createLogger(debug ? 'debug' : 'error');
+    this._timerIDs = [];
+  }
+
+  /**
+   * private methods
+   */
+
+  private _closeUI(): void {
+    const rootElement = window.document.getElementById(this._rootElementID());
+
+    // if there is a root element, remove it
+    if (rootElement) {
+      rootElement.remove();
+    }
+  }
+
+  private _onLaunchWeb(
+    onComplete: (accounts: IAccount[]) => void,
+    onError: (error: BaseARC0027Error) => void
+  ): void {
+    const _functionName = '_onLaunchWeb';
+    const timerID = window.setTimeout(() => {
+      // remove listener
+      this._avmWebClient.removeListener(listenerID);
+      this._avmWebClientListenerIDs.filter((value) => value !== listenerID);
+
+      onError(
+        new ARC0027MethodTimedOutError({
+          method: ARC0027MethodEnum.Enable,
+          message: `no response from provider "${KibisisConnect.displayName}"`,
+          providerId: import.meta.env.VITE_PROVIDER_ID,
+        })
+      );
+    }, DEFAULT_REQUEST_TIMEOUT);
+    const listenerID = this._avmWebClient.onEnable(
+      ({ error, method, result }) => {
+        // remove the listener, it is not needed
+        this._avmWebClient.removeListener(listenerID);
+        this._avmWebClientListenerIDs.filter((value) => value !== listenerID);
+
+        // remove the timeout
+        window.clearTimeout(timerID);
+        this._timerIDs.filter((value) => value !== timerID);
+
+        if (error) {
+          return onError(error);
+        }
+
+        if (!result) {
+          return onError(
+            new ARC0027UnknownError({
+              message: `received response, but "${method}" request details were empty for provider "${KibisisConnect.displayName}"`,
+              providerId: this.providerID(),
+            })
+          );
+        }
+
+        this._logger.debug(
+          `${KibisisConnect.displayName}#${_functionName}: enable successful`
+        );
+
+        // save the connection
+        if (result.sessionId) {
+          this._config.connection = {
+            __delimiter: ConnectionTypeEnum.Web,
+            sessionID: result.sessionId,
+          };
+        }
+
+        // close the ui
+        this._closeUI();
+
+        return onComplete(result.accounts);
+      }
+    );
+
+    // add the listeners
+    this._timerIDs.push(timerID);
+    this._avmWebClientListenerIDs.push(listenerID);
+
+    // send an enable request
+    this._avmWebClient.enable({
+      genesisHash: this._config.genesisHash,
+      providerId: this.providerID(),
+    });
+  }
+
+  private _reset(): void {
+    // clean up listeners
+    this._avmWebClientListenerIDs.forEach((value) =>
+      this._avmWebClient.removeListener(value)
+    );
+    this._timerIDs.forEach((value) => window.clearTimeout(value));
+    this._avmWebClientListenerIDs = [];
+    this._timerIDs = [];
+
+    // reset connection type
+    this._config.connection = null;
   }
 
   /**
@@ -53,122 +155,58 @@ export default class KibisisConnect {
     return `kibisis-connect__${this._config.id}`;
   }
 
-  private _onCloseUI(): void {
-    const rootElement = window.document.getElementById(this._rootElementID());
-
-    // if there is a root element, remove it
-    if (rootElement) {
-      rootElement.remove();
-    }
-  }
-
-  private _onLaunchWeb(): void {
-    this._avmWebClient.enable({
-      genesisHash: this._config.genesisHash,
-      providerId: this.providerID(),
-    });
-  }
-
-  private _renderUI(): void {
-    const _functionName = '_renderUI';
-    const rootElementID = this._rootElementID();
-    let rootElement: HTMLElement | null;
-
-    if (!window) {
-      throw new ARC0027UnknownError({
-        message:
-          'failed to get window object, is this being run in a browser context?',
-        providerId: this.providerID(),
-      });
-    }
-
-    rootElement = window.document.getElementById(rootElementID);
-
-    // create and attach the ui root element
-    if (!rootElement) {
-      rootElement = window.document.createElement('div');
-
-      rootElement.id = rootElementID;
-
-      window.document.body.appendChild(rootElement);
-
-      this._logger.debug(
-        `${KibisisConnect.displayName}#${_functionName}: created a new root element`
-      );
-    }
-
-    render(
-      h(App, {
-        onClose: this._onCloseUI.bind(this),
-        onLaunchWeb: this._onLaunchWeb.bind(this),
-        theme: detectSystemTheme(),
-      }),
-      rootElement
-    );
-  }
-
   /**
-   * public functions
+   * public methods
    */
 
+  /**
+   * Gets the current configuration of
+   */
+  public config(): IConfig {
+    return this._config;
+  }
+
   public async connect(): Promise<IAccount[]> {
-    const _functionName = 'connect';
-
     return new Promise((resolve, reject) => {
-      const timerID = window.setTimeout(() => {
-        // remove listeners
-        this._avmWebClient.removeListener(webEnableListenerID);
+      const _functionName = 'connect';
+      const rootElementID = this._rootElementID();
+      let rootElement: HTMLElement | null;
 
-        reject(
-          new ARC0027MethodTimedOutError({
-            method: ARC0027MethodEnum.Enable,
-            message: `no response from provider "${KibisisConnect.displayName}"`,
-            providerId: import.meta.env.VITE_PROVIDER_ID,
-          })
+      if (!window) {
+        throw new ARC0027UnknownError({
+          message:
+            'failed to get window object, is this being run in a browser context?',
+          providerId: this.providerID(),
+        });
+      }
+
+      rootElement = window.document.getElementById(rootElementID);
+
+      // create and attach the ui root element
+      if (!rootElement) {
+        rootElement = window.document.createElement('div');
+
+        rootElement.id = rootElementID;
+
+        window.document.body.appendChild(rootElement);
+
+        this._logger.debug(
+          `${KibisisConnect.displayName}#${_functionName}: created a new root element`
         );
-      }, DEFAULT_REQUEST_TIMEOUT);
-      const webEnableListenerID = this._avmWebClient.onEnable(
-        ({ error, method, result }) => {
-          // remove the listener, it is not needed
-          this._avmWebClient.removeListener(webEnableListenerID);
+      }
 
-          // remove the timeout
-          window.clearTimeout(timerID);
-
-          if (error) {
-            return reject(error);
-          }
-
-          if (!result) {
-            return reject(
-              new ARC0027UnknownError({
-                message: `received response, but "${method}" request details were empty for provider "${KibisisConnect.displayName}"`,
-                providerId: this.providerID(),
-              })
-            );
-          }
-
-          this._logger.debug(
-            `${KibisisConnect.displayName}#${_functionName}: enable successful`
-          );
-
-          // save the connection
-          if (result.sessionId) {
-            this._config.connection = {
-              __delimiter: ConnectionTypeEnum.Web,
-              sessionID: result.sessionId,
-            };
-          }
-
-          // close the ui
-          this._onCloseUI();
-
-          return resolve(result.accounts);
-        }
+      // render the ui
+      render(
+        h(App, {
+          onClose: () => {
+            this._closeUI();
+            this._reset();
+          },
+          onLaunchWeb: this._onLaunchWeb.bind(this, resolve, reject),
+          theme: detectSystemTheme(),
+        }),
+        rootElement
       );
-
-      // show the ui
-      this._renderUI();
     });
   }
 
@@ -200,7 +238,7 @@ export default class KibisisConnect {
    * @public
    */
   public setGenesisHash(genesisHash: string) {
-    this._config.connection = null; // reset the connection
+    this._reset(); // reset the connection and remove listeners
     this._config.genesisHash = genesisHash;
   }
 

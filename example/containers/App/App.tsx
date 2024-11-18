@@ -1,4 +1,4 @@
-import { type FC, useEffect, useMemo } from 'react';
+import { type FC, useMemo } from 'react';
 import { KibisisConnect } from '../../../dist';
 
 // components
@@ -19,12 +19,12 @@ const App: FC = () => {
   );
   // handlers
   const handleOnConnectClick = async () => {
-    await kibisisConnect.connect();
-  };
+    const accounts = await kibisisConnect.connect();
+    const config = kibisisConnect.config();
 
-  useEffect(() => {
-    (async () => await kibisisConnect.connect())();
-  }, []);
+    console.log(`connected using "${config.connection?.__delimiter}"`);
+    console.log('received accounts:', accounts);
+  };
 
   return (
     <div className={styles.wrapper}>
