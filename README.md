@@ -74,15 +74,16 @@ npm install @kibisis/connect-kit
 
 ### 3.1. Useful Commands
 
-| Command              | Description                                                                      |
-|----------------------|----------------------------------------------------------------------------------|
-| `yarn build`         | Builds the package to the `dist/`.                                               |
-| `yarn build:example` | Builds the example app to the `.example/`.                                       |
-| `yarn check:types`   | Checks the types.                                                                |
-| `yarn lint`          | Runs linting.                                                                    |
-| `yarn prettier`      | Runs `prettier` with the same configuration that is run on the pre-commit hooks. |
-| `yarn start:example` | Runs the example app at [http://localhost:8080](http://localhost:8080).          |
-| `yarn test`          | Runs the tests.                                                                  |
+| Command              | Description                                                                                         |
+|----------------------|-----------------------------------------------------------------------------------------------------|
+| `yarn build`         | Builds the package to the `dist/`.                                                                  |
+| `yarn build:example` | Builds the example app to the `.example/`.                                                          |
+| `yarn check:types`   | Checks the types.                                                                                   |
+| `yarn generate:env`  | Copies the `.env.example` to a `.env` file. This command does not overwrite a previous `.env` file. |
+| `yarn lint`          | Runs linting.                                                                                       |
+| `yarn prettier`      | Runs `prettier` with the same configuration that is run on the pre-commit hooks.                    |
+| `yarn start:example` | Runs the example app at [http://localhost:8080](http://localhost:8080).                             |
+| `yarn test`          | Runs the tests.                                                                                     |
 
 <sup>[Back to top ^][table-of-contents]</sup>
 
