@@ -1,11 +1,14 @@
 import clsx from 'clsx';
 import { FunctionComponent } from 'preact';
-import { useEffect, useMemo, useRef } from 'preact/hooks';
-import QRCodeStyling from 'qr-code-styling';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import QRCodeStyling, {
+  type Options as QRCodeStylingOptions,
+} from 'qr-code-styling';
 
 // components
 import HStack from '@components/HStack';
 import Link from '@components/Link';
+import Loader from '@components/Loader';
 import Stack from '@components/Stack';
 import Text from '@components/Text';
 import VStack from '@components/VStack';
@@ -43,42 +46,58 @@ const MobileConnect: FunctionComponent<IProps> = ({
   // hooks
   const primaryLightColor = usePrimaryColor('light');
   // memo
-  const qrCode = useMemo(
-    () =>
-      new QRCodeStyling({
-        backgroundOptions: {
-          color: '#ffffff',
-        },
-        cornersDotOptions: {
-          type: 'dot',
-        },
-        cornersSquareOptions: {
-          type: 'dot',
-        },
-        data: walletConnectURI,
-        dotsOptions: {
-          color: primaryLightColor,
-          type: 'dots',
-        },
-        height: 300,
-        image: svgToDataURI(qrCodeIconSVG),
-        imageOptions: {
-          crossOrigin: 'anonymous',
-          margin: 10,
-        },
-        type: 'svg',
-        width: 300,
-      }),
-    [walletConnectURI]
+  const defaultQRCodeOptions: Partial<QRCodeStylingOptions> = useMemo(
+    () => ({
+      backgroundOptions: {
+        color: '#ffffff',
+      },
+      cornersDotOptions: {
+        type: 'dot',
+      },
+      cornersSquareOptions: {
+        type: 'dot',
+      },
+      dotsOptions: {
+        color: primaryLightColor,
+        type: 'dots',
+      },
+      height: 300,
+      image: svgToDataURI(qrCodeIconSVG),
+      imageOptions: {
+        crossOrigin: 'anonymous',
+        margin: 10,
+      },
+      type: 'svg',
+      width: 300,
+    }),
+    []
+  );
+  // states
+  const [qrCode, setQRCode] = useState<QRCodeStyling | null>(
+    walletConnectURI
+      ? new QRCodeStyling({
+          ...defaultQRCodeOptions,
+          data: walletConnectURI,
+        })
+      : null
   );
   // misc
   const platformIconSize = '2rem';
 
   useEffect(() => {
-    if (qrCodeRef.current) {
-      qrCode.append(qrCodeRef.current);
+    let _qrCode: QRCodeStyling;
+
+    if (qrCodeRef.current && walletConnectURI) {
+      _qrCode = new QRCodeStyling({
+        ...defaultQRCodeOptions,
+        data: walletConnectURI,
+      });
+
+      _qrCode.append(qrCodeRef.current);
+
+      setQRCode(_qrCode);
     }
-  }, [qrCode, qrCodeRef]);
+  }, [walletConnectURI, qrCodeRef]);
 
   return (
     <Stack align="center" fullWidth={true} justify="center">
@@ -97,7 +116,19 @@ const MobileConnect: FunctionComponent<IProps> = ({
           </Text>
 
           {/*qr code*/}
-          <div className={clsx(styles.qrCode)} ref={qrCodeRef}></div>
+          <div className={clsx(styles.qrCodeContainer)}>
+            {!qrCode && (
+              <Stack
+                align="center"
+                className={clsx(styles.qrCodeLoadingOverlay)}
+                justify="center"
+              >
+                <Loader color={primaryLightColor} />
+              </Stack>
+            )}
+
+            <div className={clsx(styles.qrCode)} ref={qrCodeRef} />
+          </div>
         </VStack>
 
         <VStack align="center" fullWidth={true} spacing="sm">

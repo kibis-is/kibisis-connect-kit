@@ -1,6 +1,6 @@
 import { IAccount } from '@agoralabs-sh/avm-web-provider';
 import { type FC, useEffect, useState } from 'react';
-import { type IConfig, KibisisConnect } from '../../../dist';
+import { type IConfig, KibisisConnect } from '@kibisis/connect-kit';
 
 // components
 import Button from '@example/components/Button';

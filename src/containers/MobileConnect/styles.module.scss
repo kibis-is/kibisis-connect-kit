@@ -3,7 +3,24 @@
 @use "sass:map";
 
 .qr-code {
-  background-color: palette.$white-color;
-  border-radius: map.get(variables.$border-radius, "lg");
-  padding: 1rem; // 16px
+  position: relative;
+  z-index: 0;
+
+  &__container {
+    background-color: palette.background-color("light");
+    border-radius: map.get(variables.$border-radius, "lg");
+    overflow: hidden;
+    padding: 1rem; // 16px
+    position: relative;
+  }
+
+  &__loading-overlay {
+    background-color: palette.background-color("light");
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
 }

@@ -2,14 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
+      "@kibisis/connect-kit": ["dist"],
       "@example/components/*": ["example/components/*"],
       "@example/containers/*": ["example/containers/*"],
-      "@example/styles/*": ["example/styles/*"],
-      "@components/*": ["src/components/*"],
-      "@containers/*": ["src/containers/*"],
-      "@models/*": ["src/models/*"],
-      "@types": ["src/types"],
-      "@utils/*": ["src/utils/*"]
+      "@example/styles/*": ["example/styles/*"]
     }
   },
   "include": ["example/**/*.ts", "example/**/*.tsx"]
