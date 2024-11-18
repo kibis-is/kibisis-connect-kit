@@ -23,7 +23,11 @@ const Footer: FunctionComponent<IBaseComponentProps> = ({ theme = 'dark' }) => {
       {/*privacy policy*/}
       <Text size="sm" textAlign="center" theme={theme}>
         By connecting to Kibisis, you agree to the Kibisis{' '}
-        <Link href={`${KIBISIS_URL}/privacy-policy`} isExternal={true}>
+        <Link
+          href={`${KIBISIS_URL}/privacy-policy`}
+          isExternal={true}
+          theme={theme}
+        >
           privacy policy
         </Link>
         .
