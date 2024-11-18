@@ -1,11 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "declarationMap": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "Bundler",
-    "sourceMap": true
+    "paths": {
+      "@example/components/*": ["example/components/*"],
+      "@example/containers/*": ["example/containers/*"],
+      "@example/styles/*": ["example/styles/*"],
+      "@components/*": ["src/components/*"],
+      "@containers/*": ["src/containers/*"],
+      "@models/*": ["src/models/*"],
+      "@types": ["src/types"],
+      "@utils/*": ["src/utils/*"]
+    }
   },
-  "include": ["example/**/*.ts", "example/**/*.tsx"],
-  "exclude": ["node_modules", "src/**/*.ts", "src/**/*.tsx"]
+  "include": ["example/**/*.ts", "example/**/*.tsx"]
 }

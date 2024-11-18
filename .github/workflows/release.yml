@@ -7,26 +7,8 @@ on:
       - main
 
 jobs:
-  ##
-  # install
-  ##
-
-  install:
-    name: "Install"
-    runs-on: ubuntu-latest
-    steps:
-      - name: "🛎 Checkout"
-        uses: actions/checkout@v4
-      - name: "🧶 Setup Yarn Dependencies"
-        uses: ./.github/actions/use-yarn-dependencies
-
-  ##
-  # release
-  ##
-
   release:
     name: "Release"
-    needs: install
     permissions:
       contents: write # to be able to publish a github release
       issues: write # to be able to comment on released issues
@@ -44,6 +26,10 @@ jobs:
           echo "access=public" >> .npmrc
       - name: "🧶 Setup Yarn Dependencies"
         uses: ./.github/actions/use-yarn-dependencies
+      - name: "📝 Create .env file"
+        uses: ./.github/actions/create-env-file
+        with:
+          provider_id: ${{ vars.PROVIDER_ID }}
       - name: "🏗️ Build"
         run: yarn build
       - name: "🔖 Release"
@@ -54,5 +40,5 @@ jobs:
           GIT_COMMITTER_NAME: kibi-bot
           GIT_COMMITTER_EMAIL: builders@kibis.is
           # used to push the release commit and create the tags
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.READ_AND_WRITE_REPOS_TOKEN }}
         run: yarn semantic-release

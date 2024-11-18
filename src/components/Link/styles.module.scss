@@ -1,0 +1,19 @@
+@use "@styles/mixins";
+@use "@styles/palette";
+@use "@styles/variables";
+
+.link {
+  color: palette.link-font-color("light");
+
+  &[data-theme="dark"] {
+    color: palette.link-font-color("dark");
+  }
+
+  &:hover {
+    color: palette.link-active-font-color("dark");
+
+    &[data-theme="dark"] {
+      color: palette.link-active-font-color("dark");
+    }
+  }
+}

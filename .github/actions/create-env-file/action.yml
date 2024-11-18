@@ -1,0 +1,17 @@
+name: "Create Env File"
+
+description: "Creates an .env file"
+
+inputs:
+  provider_id:
+    description: "The provider ID used for connections to dApps"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: "📝 Create .env file"
+      run: |
+        rm -f .env
+        echo "VITE_PROVIDER_ID=${{ inputs.provider_id }}" >> .env
+      shell: bash
