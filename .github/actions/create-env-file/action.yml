@@ -6,6 +6,9 @@ inputs:
   provider_id:
     description: "The provider ID used for connections to dApps"
     required: true
+  reown_project_id:
+    description: "The Reown project ID used for connections to dApps"
+    required: true
 
 runs:
   using: "composite"
@@ -14,4 +17,5 @@ runs:
       run: |
         rm -f .env
         echo "VITE_PROVIDER_ID=${{ inputs.provider_id }}" >> .env
+        echo "VITE_REOWN_PROJECT_ID=${{ inputs.reown_project_id }}" >> .env
       shell: bash

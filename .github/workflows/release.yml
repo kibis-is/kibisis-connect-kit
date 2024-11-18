@@ -30,6 +30,7 @@ jobs:
         uses: ./.github/actions/create-env-file
         with:
           provider_id: ${{ vars.PROVIDER_ID }}
+          reown_project_id: ${{ vars.REOWN_PROJECT_ID }}
       - name: "🏗️ Build"
         run: yarn build
       - name: "🔖 Release"
