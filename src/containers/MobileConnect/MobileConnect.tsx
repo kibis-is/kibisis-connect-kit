@@ -35,7 +35,10 @@ import type { IProps } from './types';
 // utils
 import svgToDataURI from '@utils/svgToDataURI';
 
-const MobileConnect: FunctionComponent<IProps> = ({ theme = 'dark' }) => {
+const MobileConnect: FunctionComponent<IProps> = ({
+  theme = 'dark',
+  walletConnectURI,
+}) => {
   const qrCodeRef = useRef<HTMLDivElement | null>(null);
   // hooks
   const primaryLightColor = usePrimaryColor('light');
@@ -52,13 +55,12 @@ const MobileConnect: FunctionComponent<IProps> = ({ theme = 'dark' }) => {
         cornersSquareOptions: {
           type: 'dot',
         },
-        data: 'https://www.facebook.com/',
+        data: walletConnectURI,
         dotsOptions: {
           color: primaryLightColor,
           type: 'dots',
         },
         height: 300,
-        // image: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg',
         image: svgToDataURI(qrCodeIconSVG),
         imageOptions: {
           crossOrigin: 'anonymous',

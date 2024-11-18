@@ -1,4 +1,3 @@
-@use "@styles/media";
 @use "@styles/palette";
 @use "@styles/variables";
 @use "sass:map";
@@ -6,5 +5,5 @@
 .qr-code {
   background-color: palette.$white-color;
   border-radius: map.get(variables.$border-radius, "lg");
-  padding: 1.5rem; // 24px
+  padding: 1rem; // 16px
 }

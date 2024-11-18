@@ -38,7 +38,12 @@ import styles from './styles.module.scss';
 import { TTheme } from '@types';
 import type { IProps } from './types';
 
-const App: FunctionComponent<IProps> = ({ onClose, onLaunchWeb, theme }) => {
+const App: FunctionComponent<IProps> = ({
+  onClose,
+  onLaunchWeb,
+  theme,
+  walletConnectURI,
+}) => {
   // hooks
   const defaultTextColor = useDefaultTextColor(theme);
   const primaryColor = usePrimaryColor(theme);
@@ -125,7 +130,12 @@ const App: FunctionComponent<IProps> = ({ onClose, onLaunchWeb, theme }) => {
           <Accordion
             items={[
               {
-                content: <MobileConnect theme={theme} />,
+                content: (
+                  <MobileConnect
+                    theme={theme}
+                    walletConnectURI={walletConnectURI}
+                  />
+                ),
                 title: (
                   <HStack fullWidth={true} spacing="sm">
                     <PhoneIcon
