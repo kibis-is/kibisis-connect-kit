@@ -3,11 +3,8 @@ import type { FunctionComponent } from 'preact';
 // types
 import type { TIconProps } from '@types';
 
-const PlayStoreIcon: FunctionComponent<TIconProps> = ({
-  color,
-  ...svgProps
-}) => (
-  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
+const PlayStoreIcon: FunctionComponent<TIconProps> = (props) => (
+  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" {...props}>
     <linearGradient
       id="AraffhWwwEqZfgFEBZFoqa"
       x1="18.102"

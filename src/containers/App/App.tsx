@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { Component, type ComponentChild } from 'preact';
+import { type FunctionComponent } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
 
 // components
 import Accordion from '@components/Accordion';
@@ -34,188 +35,154 @@ import SunnyIcon from '@icons/SunnyIcon';
 import styles from './styles.module.scss';
 
 // types
-import type { IProps, IState } from './types';
+import { TTheme } from '@types';
+import type { IProps } from './types';
 
-export default class App extends Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
+const App: FunctionComponent<IProps> = ({ onClose, onLaunchWeb, theme }) => {
+  // hooks
+  const defaultTextColor = useDefaultTextColor(theme);
+  const primaryColor = usePrimaryColor(theme);
+  // states
+  const [_theme, setTheme] = useState<TTheme>(theme);
+  // handlers
+  const handleOnClose = () => onClose();
+  const handleOnLaunchWeb = () => onLaunchWeb();
+  const handleOnSystemThemeChangeEvent = ({ matches }: MediaQueryListEvent) =>
+    setTheme(matches ? 'dark' : 'light');
+  const handleOnThemeClick = () =>
+    setTheme(_theme === 'dark' ? 'light' : 'dark');
 
-    this.state = {
-      theme: props.theme,
+  useEffect(() => {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', handleOnSystemThemeChangeEvent);
+
+    return () => {
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .removeEventListener('change', handleOnSystemThemeChangeEvent);
     };
+  }, []);
+  useEffect(() => setTheme(theme), [theme]);
 
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener(
-        'change',
-        this._handleOnSystemThemeChangeEvent.bind(this)
-      );
-  }
+  return (
+    <div className={clsx(styles.modal)} data-theme={theme}>
+      {/*overlay*/}
+      <div className={clsx(styles.modalOverlay)}></div>
 
-  /**
-   * private methods
-   */
-
-  private _handleOnClose(): void {
-    this.props.onClose();
-  }
-
-  private _handleOnSystemThemeChangeEvent({
-    matches,
-  }: MediaQueryListEvent): void {
-    this.setState({
-      theme: matches ? 'dark' : 'light',
-    });
-  }
-
-  private _handleOnLaunchWeb(): void {
-    this.props.onLaunchWeb();
-  }
-
-  private _handleOnThemeClick(): void {
-    this.setState({
-      theme: this.state.theme === 'dark' ? 'light' : 'dark',
-    });
-  }
-
-  /**
-   * public methods
-   */
-
-  public componentWillUnmount(): void {
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .removeEventListener(
-        'change',
-        this._handleOnSystemThemeChangeEvent.bind(this)
-      );
-  }
-
-  public render(): ComponentChild {
-    const { theme } = this.state;
-    const defaultTextColor = useDefaultTextColor(theme);
-    const primaryColor = usePrimaryColor(theme);
-
-    return (
-      <div className={clsx(styles.modal)} data-theme={theme}>
-        {/*overlay*/}
-        <div className={clsx(styles.modalOverlay)}></div>
-
-        {/*modal*/}
-        <VStack className={clsx(styles.modalContainer)} fullWidth={true}>
-          {/*header*/}
-          <HStack
-            align="center"
-            fullWidth={true}
-            justify="between"
-            padding={DEFAULT_PADDING}
-            spacing="xs"
-          >
-            <HStack align="center" spacing="sm" fullWidth={true}>
-              <Link href={KIBISIS_URL} isExternal={true}>
-                <KibisisIcon
-                  className={clsx(styles.modalHeaderIcon)}
-                  color={primaryColor}
-                />
-              </Link>
-
-              <Heading textAlign="left" theme={theme}>
-                Kibisis Connect
-              </Heading>
-            </HStack>
-
-            <HStack align="center" justify="center" spacing="xs">
-              {/*change theme button*/}
-              <IconButton
-                icon={theme === 'dark' ? <MoonIcon /> : <SunnyIcon />}
-                onClick={this._handleOnThemeClick.bind(this)}
-                theme={theme}
+      {/*modal*/}
+      <VStack className={clsx(styles.modalContainer)} fullWidth={true}>
+        {/*header*/}
+        <HStack
+          align="center"
+          fullWidth={true}
+          justify="between"
+          padding={DEFAULT_PADDING}
+          spacing="xs"
+        >
+          <HStack align="center" spacing="sm" fullWidth={true}>
+            <Link href={KIBISIS_URL} isExternal={true}>
+              <KibisisIcon
+                className={clsx(styles.modalHeaderIcon)}
+                color={primaryColor}
               />
+            </Link>
 
-              {/*close button*/}
-              <IconButton
-                icon={<CloseIcon />}
-                onClick={this._handleOnClose.bind(this)}
-                theme={theme}
-              />
-            </HStack>
+            <Heading textAlign="left" theme={theme}>
+              Kibisis Connect
+            </Heading>
           </HStack>
 
-          {/*content*/}
-          <VStack
-            align="center"
-            fullWidth={true}
-            justify="center"
-            padding={DEFAULT_PADDING}
-            spacing="md"
-          >
-            <Text size="lg" theme={theme}>
-              Choose how you would like to connect to Kibisis.
-            </Text>
-
-            <Accordion
-              items={[
-                {
-                  content: <MobileConnect theme={theme} />,
-                  title: (
-                    <HStack fullWidth={true} spacing="sm">
-                      <PhoneIcon
-                        className={clsx(styles.accordionIcon)}
-                        color={defaultTextColor}
-                      />
-
-                      <Heading size="sm" textAlign="left" theme={theme}>
-                        Connect Via Mobile
-                      </Heading>
-                    </HStack>
-                  ),
-                },
-                {
-                  content: (
-                    <WebConnect
-                      onSelect={this._handleOnLaunchWeb.bind(this)}
-                      theme={theme}
-                    />
-                  ),
-                  title: (
-                    <HStack fullWidth={true} spacing="sm">
-                      <GlobeIcon
-                        className={clsx(styles.accordionIcon)}
-                        color={defaultTextColor}
-                      />
-
-                      <Heading size="sm" textAlign="left" theme={theme}>
-                        Connect Via Web
-                      </Heading>
-                    </HStack>
-                  ),
-                },
-              ]}
+          <HStack align="center" justify="center" spacing="xs">
+            {/*change theme button*/}
+            <IconButton
+              icon={theme === 'dark' ? <MoonIcon /> : <SunnyIcon />}
+              onClick={handleOnThemeClick}
               theme={theme}
             />
-          </VStack>
 
-          <Spacer />
+            {/*close button*/}
+            <IconButton
+              icon={<CloseIcon />}
+              onClick={handleOnClose}
+              theme={theme}
+            />
+          </HStack>
+        </HStack>
 
-          {/*footer*/}
-          <VStack
-            align="center"
-            fullWidth={true}
-            justify="center"
-            paddingBottom={DEFAULT_PADDING}
-            paddingX={DEFAULT_PADDING}
-          >
-            {/*privacy policy*/}
-            <Text size="sm" textAlign="center" theme={theme}>
-              By connecting to Kibisis, you agree to the Kibisis{' '}
-              <Link href={`${KIBISIS_URL}/privacy-policy`} isExternal={true}>
-                privacy policy
-              </Link>
-              .
-            </Text>
-          </VStack>
+        {/*content*/}
+        <VStack
+          align="center"
+          fullWidth={true}
+          justify="center"
+          padding={DEFAULT_PADDING}
+          spacing="md"
+        >
+          <Text size="lg" theme={theme}>
+            Choose how you would like to connect to Kibisis.
+          </Text>
+
+          <Accordion
+            items={[
+              {
+                content: <MobileConnect theme={theme} />,
+                title: (
+                  <HStack fullWidth={true} spacing="sm">
+                    <PhoneIcon
+                      className={clsx(styles.accordionIcon)}
+                      color={defaultTextColor}
+                    />
+
+                    <Heading size="sm" textAlign="left" theme={theme}>
+                      Connect Via Mobile
+                    </Heading>
+                  </HStack>
+                ),
+              },
+              {
+                content: (
+                  <WebConnect onSelect={handleOnLaunchWeb} theme={theme} />
+                ),
+                title: (
+                  <HStack fullWidth={true} spacing="sm">
+                    <GlobeIcon
+                      className={clsx(styles.accordionIcon)}
+                      color={defaultTextColor}
+                    />
+
+                    <Heading size="sm" textAlign="left" theme={theme}>
+                      Connect Via Web
+                    </Heading>
+                  </HStack>
+                ),
+              },
+            ]}
+            theme={theme}
+          />
         </VStack>
-      </div>
-    );
-  }
-}
+
+        <Spacer />
+
+        {/*footer*/}
+        <VStack
+          align="center"
+          fullWidth={true}
+          justify="center"
+          paddingBottom={DEFAULT_PADDING}
+          paddingX={DEFAULT_PADDING}
+        >
+          {/*privacy policy*/}
+          <Text size="sm" textAlign="center" theme={theme}>
+            By connecting to Kibisis, you agree to the Kibisis{' '}
+            <Link href={`${KIBISIS_URL}/privacy-policy`} isExternal={true}>
+              privacy policy
+            </Link>
+            .
+          </Text>
+        </VStack>
+      </VStack>
+    </div>
+  );
+};
+
+export default App;

@@ -3,11 +3,8 @@ import type { FunctionComponent } from 'preact';
 // types
 import type { TIconProps } from '@types';
 
-const AppStoreIcon: FunctionComponent<TIconProps> = ({
-  color,
-  ...svgProps
-}) => (
-  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
+const AppStoreIcon: FunctionComponent<TIconProps> = (props) => (
+  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" {...props}>
     <linearGradient
       id="OpwYZ9nhL01h2sErtedzua"
       x1="24"

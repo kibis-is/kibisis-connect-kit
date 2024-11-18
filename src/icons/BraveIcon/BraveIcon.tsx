@@ -3,11 +3,11 @@ import type { FunctionComponent } from 'preact';
 // types
 import type { TIconProps } from '@types';
 
-const BraveIcon: FunctionComponent<TIconProps> = ({ color, ...svgProps }) => (
+const BraveIcon: FunctionComponent<TIconProps> = (props) => (
   <svg
     viewBox="0 0 48.6 58.500002"
     xmlns="http://www.w3.org/2000/svg"
-    {...svgProps}
+    {...props}
   >
     <defs>
       <linearGradient

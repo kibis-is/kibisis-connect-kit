@@ -3,8 +3,8 @@ import type { FunctionComponent } from 'preact';
 // types
 import type { TIconProps } from '@types';
 
-const FDroidIcon: FunctionComponent<TIconProps> = ({ color, ...svgProps }) => (
-  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
+const FDroidIcon: FunctionComponent<TIconProps> = (props) => (
+  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       fill="#98b536"
       d="M8.501,10.5c-0.298,0-0.593-0.133-0.79-0.386l-3.5-4.5C3.871,5.178,3.95,4.55,4.386,4.211 c0.438-0.34,1.064-0.259,1.403,0.175l3.5,4.5c0.34,0.437,0.261,1.064-0.175,1.403C8.932,10.432,8.715,10.5,8.501,10.5z"

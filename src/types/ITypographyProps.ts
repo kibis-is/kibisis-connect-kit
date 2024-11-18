@@ -1,10 +1,12 @@
+import type { JSX } from 'preact';
+
 // types
 import type IBaseComponentProps from './IBaseComponentProps';
 import type TSizes from './TSizes';
 
 interface ITypographyProps extends IBaseComponentProps {
   bold?: boolean;
-  children: any;
+  children: JSX.Element | string | JSX.Element[] | (JSX.Element | string)[];
   fullWidth?: boolean;
   textAlign?: 'left' | 'center' | 'right';
   size?: TSizes;
