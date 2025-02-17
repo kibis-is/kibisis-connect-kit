@@ -1,5 +1,6 @@
 export default {
-  '*': `sh -c 'yarn generate:index && git add src/index.ts'`,
-  '**/*.{js,json,ts,tsx}': (filenames) =>
+  '**/*.{cjs,js,json,mjs,ts,tsx}': (filenames) => [
+    `sh -c 'pnpm generate:index && git add src/index.ts'`,
     `prettier --write ${filenames.join(' ')}`,
+  ],
 };
