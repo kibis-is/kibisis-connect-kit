@@ -1,6 +1,6 @@
 {
   "name": "@kibisis/connect-kit",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "The UI kit to allow dApps to connect to the Kibisis wallets.",
   "private": false,
   "repository": {

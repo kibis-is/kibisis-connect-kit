@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/kibis-is/connect-kit/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2025-02-17)
+
+
+### Features
+
+* connect via mobile ([#3](https://github.com/kibis-is/connect-kit/issues/3)) ([abce2da](https://github.com/kibis-is/connect-kit/commit/abce2dad2505c4aef3b3bfd9fbce59cde8ad741d))
+
 # 1.0.0-beta.1 (2024-11-18)
 
 
