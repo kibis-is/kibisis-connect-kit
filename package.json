@@ -30,19 +30,21 @@
   "types": "dist/index.d.ts",
   "files": [
     "CONTRIBUTING.md",
+    "COPYING",
     "dist",
     "README.md"
   ],
   "scripts": {
     "build": "pnpm clean && vite build --config vite.config.ts",
-    "build:example": "shx rm -rf .example && pnpm build && vite build --config vite.config.example.ts",
+    "build:example": "pnpm clean:example && pnpm build && vite build --config vite.config.example.ts",
     "check:types": "tsc --noEmit --project tsconfig.build.json",
-    "clean": "shx rm -rf dist && shx rm -rf tsconfig.build.tsbuildinfo",
+    "clean": "shx rm -rf dist && shx rm -rf tsconfig.*.tsbuildinfo",
+    "clean:example": "shx rm -rf .example && shx rm -rf tsconfig.*.tsbuildinfo",
     "generate:index": "tsx ./scripts/generate-index.ts",
     "generate:env": "shx cp -n .env.example .env",
     "lint": "eslint .",
     "prepare": "husky",
-    "prettier": "prettier --config .prettierrc --write \"**/*.{js,json,ts,tsx}\"",
+    "prettier": "prettier --write \"**/*.{cjs,js,json,mjs,ts,tsx}\"",
     "start": "vite build --config vite.config.ts --minify false --sourcemap true --watch",
     "start:example": "concurrently --names \"CONNECT,EXAMPLE\" -c \"magenta.bold,blue.bold\" \"pnpm start\" \"vite dev --config vite.config.example.ts\"",
     "test": "exit 0"

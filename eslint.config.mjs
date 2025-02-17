@@ -12,7 +12,7 @@ export default [
   prettierConfig,
   // custom config
   {
-    files: ['**/*.{js,mjs,cjs,ts}'],
+    files: ['**/*.{cjs,js,mjs,ts,tsx}'],
   },
   {
     languageOptions: {
