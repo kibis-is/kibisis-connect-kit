@@ -29,17 +29,17 @@
     "dist",
     "README.md"
   ],
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "scripts": {
     "build": "yarn clean && vite build --config vite.config.ts",
-    "build:example": "rimraf .example && yarn build && vite build --config vite.config.example.ts",
+    "build:example": "shx rm -rf .example && yarn build && vite build --config vite.config.example.ts",
     "check:types": "tsc --noEmit --project tsconfig.build.json",
-    "clean": "rimraf dist && rimraf tsconfig.build.tsbuildinfo",
+    "clean": "shx rm -rf dist && shx rm -rf tsconfig.build.tsbuildinfo",
     "generate:index": "tsx ./scripts/generate-index.ts",
+    "generate:env": "shx cp -n .env.example .env",
     "lint": "eslint . --ext .ts,tsx --ext .js",
     "prepare": "husky",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,json,ts,tsx}\"",
-    "start": "yarn clean && vite build --config vite.config.ts --minify false --sourcemap true --watch",
+    "start": "vite build --config vite.config.ts --minify false --sourcemap true --watch",
     "start:example": "concurrently --names \"CONNECT,EXAMPLE\" -c \"magenta.bold,blue.bold\" \"yarn start\" \"vite dev --config vite.config.example.ts\"",
     "test": "exit 0"
   },
@@ -62,6 +62,7 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "@walletconnect/types": "^2.17.2",
     "chalk": "^5.3.0",
     "concurrently": "^9.0.1",
     "eslint": "^8.57.0",
@@ -73,9 +74,9 @@
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "rimraf": "^6.0.1",
     "sass": "^1.80.3",
     "semantic-release": "^24.1.1",
+    "shx": "^0.3.4",
     "tsx": "^4.19.1",
     "typescript": "^5.3.3",
     "vite": "^5.4.8",
@@ -85,9 +86,12 @@
   },
   "dependencies": {
     "@agoralabs-sh/avm-web-provider": "^1.7.0",
+    "@stablelib/base64": "^2.0.0",
     "@stablelib/random": "^2.0.0",
+    "@walletconnect/sign-client": "^2.17.2",
     "clsx": "^2.1.1",
     "preact": "^10.24.3",
     "qr-code-styling": "^1.8.4"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -2,7 +2,8 @@
 import type { IBaseComponentProps } from '@types';
 
 interface IProps extends IBaseComponentProps {
-  walletConnectURI?: string;
+  onCloseClick: () => void;
+  onThemeClick: () => void;
 }
 
 export default IProps;

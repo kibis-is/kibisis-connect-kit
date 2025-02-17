@@ -1,10 +1,19 @@
+import { AVMWebClient } from '@agoralabs-sh/avm-web-provider';
+import SignClient from '@walletconnect/sign-client';
+
+// types
+import type { IClientMetadata } from '@types';
+
 /**
- * @property {boolean} debug - [optional] Whether to display debug messages. Defaults to "false".
- * @property {string} genesisHash - The hash of the first block that is used to identity the chain. Encoded in base64.
+ * @property {AVMWebClient} avmWebClient - An initialized AVM Web Client.
+ * @property {SignClient} walletConnectClient - An initialized WalletConnect sign client.
  */
 interface INewOptions {
-  debug?: boolean;
+  avmWebClient: AVMWebClient;
+  clientMetadata: IClientMetadata;
+  debug: boolean;
   genesisHash: string;
+  walletConnectClient: SignClient;
 }
 
 export default INewOptions;

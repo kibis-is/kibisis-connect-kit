@@ -8,6 +8,7 @@ import {
   type IAccount,
 } from '@agoralabs-sh/avm-web-provider';
 import { randomString } from '@stablelib/random';
+import SignClient from '@walletconnect/sign-client';
 import { h, render } from 'preact';
 
 // containers
@@ -18,11 +19,13 @@ import { ConnectionTypeEnum } from '@enums';
 
 // types
 import type { IConfig, ILogger } from '@types';
-import type { INewOptions } from './types';
+import type { IInitOptions, INewOptions } from './types';
 
 // utils
+import createClientMetadata from '@utils/createClientMetadata';
 import createLogger from '@utils/createLogger';
 import detectSystemTheme from '@utils/detectSystemTheme';
+import namespacesFromGenesisHash from '@utils/namespacesFromGenesisHash';
 
 export default class KibisisConnect {
   // public static variables
@@ -33,13 +36,19 @@ export default class KibisisConnect {
   private _avmWebClientListenerIDs: string[];
   private _logger: ILogger;
   private _timerIDs: number[];
+  private _walletConnectClient: SignClient;
 
-  constructor({ debug = false, genesisHash }: INewOptions) {
-    this._avmWebClient = AVMWebClient.init({
-      debug,
-    });
+  private constructor({
+    avmWebClient,
+    clientMetadata,
+    debug,
+    genesisHash,
+    walletConnectClient,
+  }: INewOptions) {
+    this._avmWebClient = avmWebClient;
     this._avmWebClientListenerIDs = [];
     this._config = {
+      clientMetadata,
       connection: null,
       debug,
       genesisHash,
@@ -47,6 +56,46 @@ export default class KibisisConnect {
     };
     this._logger = createLogger(debug ? 'debug' : 'error');
     this._timerIDs = [];
+    this._walletConnectClient = walletConnectClient;
+  }
+
+  /**
+   * public static methods
+   */
+
+  /**
+   * Initializes Kibisis Connect and setups the AVM Web Provider (for web) and WalletConnect (for mobile).
+   * @param {IInitOptions} options - The initialization options.
+   * @returns {Promise<KibisisConnect>} A promise that resolves to an initialized Kibisis Connect.
+   * @public
+   * @static
+   */
+  public static async init({
+    clientMetadata,
+    debug = false,
+    genesisHash,
+  }: IInitOptions): Promise<KibisisConnect> {
+    const _clientMetadata = clientMetadata || createClientMetadata();
+    const avmWebClient = AVMWebClient.init({
+      debug,
+    });
+    const walletConnectClient = await SignClient.init({
+      metadata: {
+        description: _clientMetadata.description || '',
+        name: _clientMetadata.name,
+        url: _clientMetadata.host,
+        icons: _clientMetadata.iconURL ? [_clientMetadata.iconURL] : [],
+      },
+      projectId: import.meta.env.VITE_REOWN_PROJECT_ID,
+    });
+
+    return new KibisisConnect({
+      avmWebClient,
+      clientMetadata: _clientMetadata,
+      debug,
+      genesisHash,
+      walletConnectClient,
+    });
   }
 
   /**
@@ -177,7 +226,7 @@ export default class KibisisConnect {
    * @public
    */
   public async connect(): Promise<IAccount[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       const _functionName = 'connect';
       const rootElementID = this._rootElementID();
       let rootElement: HTMLElement | null;
@@ -205,6 +254,11 @@ export default class KibisisConnect {
         );
       }
 
+      // get the walletconnect uri
+      const { uri } = await this._walletConnectClient.connect({
+        requiredNamespaces: namespacesFromGenesisHash(this._config.genesisHash),
+      });
+
       // render the ui
       render(
         h(App, {
@@ -214,6 +268,7 @@ export default class KibisisConnect {
           },
           onLaunchWeb: this._onLaunchWeb.bind(this, resolve, reject),
           theme: detectSystemTheme(),
+          walletConnectURI: uri,
         }),
         rootElement
       );

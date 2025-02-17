@@ -3,14 +3,6 @@
 @use "@styles/variables";
 @use "sass:map";
 
-$accordion-icon-size: 1.5rem; // 24px
-$header-icon-size: 3rem; // 48px
-
-.accordion-icon {
-  height: $accordion-icon-size;
-  width: $accordion-icon-size;
-}
-
 .modal {
   align-items: center;
   bottom: 0;
@@ -33,11 +25,6 @@ $header-icon-size: 3rem; // 48px
       border-radius: map.get(variables.$border-radius, md);
       height: auto;
     }
-  }
-
-  &__header-icon {
-    height: $header-icon-size;
-    width: $header-icon-size;
   }
 
   &__overlay {

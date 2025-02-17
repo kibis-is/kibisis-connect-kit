@@ -1,5 +1,6 @@
-import { type FC, useMemo } from 'react';
-import { KibisisConnect } from '../../../dist';
+import { IAccount } from '@agoralabs-sh/avm-web-provider';
+import { type FC, useEffect, useState } from 'react';
+import { type IConfig, KibisisConnect } from '@kibisis/connect-kit';
 
 // components
 import Button from '@example/components/Button';
@@ -9,22 +10,36 @@ import styles from './styles.module.scss';
 
 const App: FC = () => {
   // states
-  const kibisisConnect = useMemo<KibisisConnect>(
-    () =>
-      new KibisisConnect({
-        debug: true,
-        genesisHash: '5pbhGq04byd0AgV/sbP+yITANqazgKBuaATr85n21wY=', // voi testnet
-      }),
-    []
+  const [kibisisConnect, setKibisisConnect] = useState<KibisisConnect | null>(
+    null
   );
   // handlers
   const handleOnConnectClick = async () => {
-    const accounts = await kibisisConnect.connect();
-    const config = kibisisConnect.config();
+    let accounts: IAccount[];
+    let config: IConfig;
+
+    if (!kibisisConnect) {
+      console.error('kibisis connect not initialized');
+
+      return;
+    }
+
+    accounts = await kibisisConnect.connect();
+    config = kibisisConnect.config();
 
     console.log(`connected using "${config.connection?.__delimiter}"`);
     console.log('received accounts:', accounts);
   };
+
+  useEffect(() => {
+    (async () =>
+      setKibisisConnect(
+        await KibisisConnect.init({
+          debug: true,
+          genesisHash: '5pbhGq04byd0AgV/sbP+yITANqazgKBuaATr85n21wY=', // voi testnet
+        })
+      ))();
+  }, []);
 
   return (
     <div className={styles.wrapper}>
