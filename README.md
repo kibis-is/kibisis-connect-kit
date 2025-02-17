@@ -1,51 +1,44 @@
 <p align="center">
   <a href="https://kibis.is">
-    <img alt="Kibisis logo" src=".github/assets/logo@407x128.png" style="padding-top: 15px" height="64" />
+    <img alt="Kibisis logo" src="docs/images/logo@407x128.png" height="64" />
   </a>
 </p>
 
-<h1 p align="center">
+<h1 align="center">
   Kibisis Connect Kit
 </h1>
 
-<p p align="center">
+<div align="center">
+
+[![License: AGPL-3.0-or-later](https://img.shields.io/github/license/kibis-is/connect-kit)](./COPYING)
+[![NPM Version](https://img.shields.io/npm/v/%40kibisis%2Fconnect-kit)](https://www.npmjs.com/package/%40kibisis/connect-kit)
+![GitHub Pre-release](https://img.shields.io/github/v/release/kibis-is/connect-kit?include_prereleases&label=pre-release&logo=github)
+![GitHub Release](https://img.shields.io/github/v/release/kibis-is/connect-kit?&logo=github)
+
+</div>
+
+<p align="center">
   The UI kit to allow dApps to connect to the Kibisis wallets.
 </p>
 
-<p align="center">
-  <a href="https://github.com/kibis-is/connect-kit/releases/latest">
-    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/kibis-is/connect-kit?&logo=github">
-  </a>
-  <a href="https://github.com/kibis-is/connect-kit/releases/latest">
-    <img alt="GitHub Release Date - Published At" src="https://img.shields.io/github/release-date/kibis-is/connect-kit?logo=github">
-  </a>
-</p>
+---
 
-<p align="center">
-  <a href="https://github.com/kibis-is/connect-kit/releases">
-    <img alt="GitHub Pre-release" src="https://img.shields.io/github/v/release/kibis-is/connect-kit?include_prereleases&label=pre-release&logo=github">
-  </a>
-  <a href="https://github.com/kibis-is/connect-kit/releases">
-    <img alt="GitHub Pre-release Date - Published At" src="https://img.shields.io/github/release-date-pre/kibis-is/connect-kit?label=pre-release date&logo=github">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/kibis-is/website/blob/main/LICENSE">
-    <img alt="GitHub License" src="https://img.shields.io/github/license/kibis-is/connect-kit">
-  </a>
-</p>
-
-### Table Of Contents
+### Table of Contents
 
 * [1. Overview](#-1-overview)
-* [2. Getting Started](#-2-getting-started)
-  - [2.1. Requirements](#21-requirements)
-  - [2.2. Installation](#22-installation)
-* [3. Appendix](#-3-appendix)
-  - [3.1. Useful Commands](#31-useful-commands)
-* [4. How To Contribute](#-4-how-to-contribute)
-* [5. License](#-5-license)
+* [2. Usage](#-2-usage)
+  - [2.1. Installation](#21-installation)
+  - [2.2. Getting Started](#22-getting-started)
+    - [2.2.1. Initialization](#221-initialization)
+    - [2.2.2. Connect](#222-connect)
+* [3. API Reference](#-3-api-reference)
+* [4. Development](#-4-development)
+  - [4.1. Requirements](#41-requirements)
+  - [4.2. Installation](#42-installation)
+* [5. Appendix](#-5-appendix)
+  - [5.1. Useful Commands](#51-useful-commands)
+* [6. How To Contribute](#-6-how-to-contribute)
+* [7. License](#-7-license)
 
 ## 🗂️ 1. Overview
 
@@ -53,54 +46,98 @@
 
 <sup>[Back to top ^][table-of-contents]</sup>
 
-## 🪄 2. Getting Started
+## 🪄 2. Usage
 
-### 2.1. Requirements
+### 2.1. Installation
 
-* Install [Node v20.9.0+][node] (LTS as of 20th October 2024)
-
-<sup>[Back to top ^][table-of-contents]</sup>
-
-### 2.2. Installation
-
-Install the dependencies using:
+Install using:
 ```shell
 npm install @kibisis/connect-kit
 ```
 
 <sup>[Back to top ^][table-of-contents]</sup>
 
-## 📑 3. Appendix
+### 2.2. Getting Started
 
-### 3.1. Useful Commands
+#### 2.2.1. Initialization
+
+First you will need to initialize Kibisis connect kit:
+
+```typescript
+import { KibisisConnect } from '@kibisis/connect-kit';
+
+const kibisisConnect = await KibisisConnect.init({
+  genesisHash: '5pbhGq04byd0AgV/sbP+yITANqazgKBuaATr85n21wY=',
+});
+```
+
+> ⚠️ **NOTE:** You **MUST** initialize Kibisis connect kit with a genesis hash for the desired network, but you can change this later.
+
+<sup>[Back to top ^][table-of-contents]</sup>
+
+#### 2.2.2. Connect
+
+Once you have successfully initialized the Kibisis connect kit, you can fetch the accounts using the `connect()` function.
+
+```typescript
+import { KibisisConnect } from '@kibisis/connect-kit';
+
+const accounts = await kibisisConnect.connect();
+```
+
+<sup>[Back to top ^][table-of-contents]</sup>
+
+## 🗃️ 3. API Reference
+
+<sup>[Back to top ^][table-of-contents]</sup>
+
+## 🪄 4. Development
+
+### 4.1. Requirements
+
+* Install [Node v22+](https://nodejs.org/en/)
+* Install [pnpm v10+](https://pnpm.io/installation)
+
+<sup>[Back to top ^][table-of-contents]</sup>
+
+### 4.2. Installation
+
+Install the dependencies using:
+```shell
+pnpm install
+```
+
+<sup>[Back to top ^][table-of-contents]</sup>
+
+## 📑 5. Appendix
+
+### 5.1. Useful Commands
 
 | Command              | Description                                                                                         |
 |----------------------|-----------------------------------------------------------------------------------------------------|
-| `yarn build`         | Builds the package to the `dist/`.                                                                  |
-| `yarn build:example` | Builds the example app to the `.example/`.                                                          |
-| `yarn check:types`   | Checks the types.                                                                                   |
-| `yarn generate:env`  | Copies the `.env.example` to a `.env` file. This command does not overwrite a previous `.env` file. |
-| `yarn lint`          | Runs linting.                                                                                       |
-| `yarn prettier`      | Runs `prettier` with the same configuration that is run on the pre-commit hooks.                    |
-| `yarn start:example` | Runs the example app at [http://localhost:8080](http://localhost:8080).                             |
-| `yarn test`          | Runs the tests.                                                                                     |
+| `pnpm build`         | Builds the package to the `dist/`.                                                                  |
+| `pnpm build:example` | Builds the example app to the `.example/`.                                                          |
+| `pnpm check:types`   | Checks the types.                                                                                   |
+| `pnpm generate:env`  | Copies the `.env.example` to a `.env` file. This command does not overwrite a previous `.env` file. |
+| `pnpm lint`          | Runs linting.                                                                                       |
+| `pnpm prettier`      | Runs `prettier` with the same configuration that is run on the pre-commit hooks.                    |
+| `pnpm start:example` | Runs the example app at [http://localhost:8080](http://localhost:8080).                             |
+| `pnpm test`          | Runs the tests.                                                                                     |
 
 <sup>[Back to top ^][table-of-contents]</sup>
 
-## 👏 4. How To Contribute
+## 👏 6. How To Contribute
 
-Please read the [**Contributing Guide**][contribute] to learn about the development process.
+Please read the [**Contributing Guide**](./CONTRIBUTING.md) to learn about the development process.
 
 <sup>[Back to top ^][table-of-contents]</sup>
 
-## 📄 5. License
+## 📄 7. License
 
 Please refer to the [COPYING][copying] file.
 
 <sup>[Back to top ^][table-of-contents]</sup>
 
-<!-- Links -->
-[contribute]: ./CONTRIBUTING.md
+<!-- links -->
 [copying]: ./COPYING
-[node]: https://nodejs.org/en/
 [table-of-contents]: #table-of-contents

@@ -9,7 +9,7 @@ function main(): void {
   const srcDir = join(process.cwd(), 'src');
   const directories = ['models', 'utils'];
   const exports: string[] = [
-    '// exports will be generated automatically using: yarn generate:index',
+    '// exports will be generated automatically using: pnpm generate:index',
     `export * from './types';`,
   ];
   let indexFilePath: string;
@@ -27,9 +27,7 @@ function main(): void {
         continue;
       }
 
-      exports.push(
-        `export { default as ${item} } from './${directory}/${item}';`
-      );
+      exports.push(`export { default as ${item} } from './${directory}/${item}';`);
     }
   }
 
@@ -38,9 +36,7 @@ function main(): void {
   // write to index file
   writeFileSync(indexFilePath, `${exports.join('\n')}\n`, 'utf-8');
 
-  console.log(
-    `${chalk.yellow('[INFO]')}: generated indexes for components to "./src/index.ts"`
-  );
+  console.log(`${chalk.yellow('[INFO]')}: generated indexes for components to "./src/index.ts"`);
 }
 
 main();
