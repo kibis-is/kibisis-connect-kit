@@ -3,9 +3,9 @@ import type { JSX } from 'preact';
 // types
 import type { IBaseComponentProps } from '@types';
 
-interface IProps extends IBaseComponentProps {
+interface IProps {
   isExternal?: boolean;
 }
-type TProps = JSX.HTMLAttributes<HTMLAnchorElement> & IProps;
+type TProps = JSX.AnchorHTMLAttributes & IBaseComponentProps & IProps;
 
 export default TProps;

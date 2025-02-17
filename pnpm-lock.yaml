@@ -24,7 +24,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       preact:
-        specifier: ^10.24.3
+        specifier: ^10.26.0
         version: 10.26.0
       qr-code-styling:
         specifier: ^1.8.4
