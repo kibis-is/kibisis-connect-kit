@@ -24,15 +24,15 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_PACKAGES_ACCESS_TOKEN }}" >> .npmrc
           echo "@kibisis:registry=https://registry.npmjs.org" >> .npmrc
           echo "access=public" >> .npmrc
-      - name: "🧶 Setup Yarn Dependencies"
-        uses: ./.github/actions/use-yarn-dependencies
+      - name: "📦 Setup pnpm Dependencies"
+        uses: ./.github/actions/use-pnpm-dependencies
       - name: "📝 Create .env file"
         uses: ./.github/actions/create-env-file
         with:
           provider_id: ${{ vars.PROVIDER_ID }}
           reown_project_id: ${{ vars.REOWN_PROJECT_ID }}
       - name: "🏗️ Build"
-        run: yarn build
+        run: pnpm build
       - name: "🔖 Release"
         env:
           # appears on the release commits
@@ -42,4 +42,4 @@ jobs:
           GIT_COMMITTER_EMAIL: builders@kibis.is
           # used to push the release commit and create the tags
           GITHUB_TOKEN: ${{ secrets.READ_AND_WRITE_REPOS_TOKEN }}
-        run: yarn semantic-release
+        run: pnpm exec semantic-release

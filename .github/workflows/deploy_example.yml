@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: "🛎 Checkout"
         uses: actions/checkout@v4
-      - name: "🧶 Setup Yarn Dependencies"
-        uses: ./.github/actions/use-yarn-dependencies
+      - name: "📦 Setup pnpm Dependencies"
+        uses: ./.github/actions/use-pnpm-dependencies
 
 
   build:
@@ -22,10 +22,10 @@ jobs:
     steps:
       - name: "🛎 Checkout"
         uses: actions/checkout@v4
-      - name: "🧶 Setup Yarn Dependencies"
-        uses: ./.github/actions/use-yarn-dependencies
+      - name: "📦 Setup pnpm Dependencies"
+        uses: ./.github/actions/use-pnpm-dependencies
       - name: "🏗️ Build"
-        run: yarn build
+        run: pnpm build:example
       - name: "📤 Upload artifact"
         uses: actions/upload-pages-artifact@v3
         with:
