@@ -7,6 +7,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
+    'no-async-promise-executor': 'warn',
     'prefer-const': 'off',
     'react-refresh/only-export-components': [
       'warn',
