@@ -1,4 +1,4 @@
-// exports will be generated automatically using: yarn generate:index
+// exports will be generated automatically using: pnpm generate:index
 export * from './types';
 export { default as KibisisConnect } from './models/KibisisConnect';
 export { default as chainReferenceFromGenesisHash } from './utils/chainReferenceFromGenesisHash';
